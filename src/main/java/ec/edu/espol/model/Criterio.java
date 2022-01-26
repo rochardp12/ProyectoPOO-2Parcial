@@ -10,5 +10,18 @@ package ec.edu.espol.model;
  * @author Issac Maza
  */
 public class Criterio {
+    private int id;
+    private String descripcion;
+    private ArrayList<Evaluacion> evaluaciones;
+    private int idConcurso;
+    private Concurso concurso;
+    //constructor
+    
+    public Criterio(int id, String descripcion, Concurso concurso){
+        this.id = id;
+        this.descripcion = descripcion;
+        this.evaluaciones = new ArrayList<>();
+        this.idConcurso = concurso.getId();
+        this.concurso = concurso;
     
 }
