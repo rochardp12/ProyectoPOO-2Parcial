@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import javafx.scene.image.Image;
 
 /**
  * JavaFX App
@@ -19,6 +22,11 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("pantallaInicial").load(), 600, 400);
         stage.setScene(scene);
+        stage.setTitle("Concurso de Mascotas");
+        String rut = System.getProperty("user.dir") + "/src/main/resources/img/icono.png";
+        Path ruta = Paths.get(rut);
+        Image imagen = new Image("file:" + ruta);
+        stage.getIcons().add(imagen);
         stage.show();
     }
 
