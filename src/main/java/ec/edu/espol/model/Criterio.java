@@ -5,7 +5,10 @@
  */
 package ec.edu.espol.model;
 
+import static ec.edu.espol.model.Inscripcion.readFromFile;
 import ec.edu.espol.util.Util;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  *
@@ -37,7 +40,6 @@ public class Criterio {
         catch(IDCriterioException ex){
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
-
         }
     }
 
@@ -60,8 +62,7 @@ public class Criterio {
         catch(IDConcursoException ex){
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
-        }
-        
+        }  
     }
 
     public void setConcurso(Concurso concurso) {
@@ -118,12 +119,12 @@ public class Criterio {
                 a.show();
             }
             else{
-                Alert a = new Alert(AlertType.CONFIRMATION, "Agregado ");
+                Alert a = new Alert(AlertType.CONFIRMATION, "Criterio agregados con éxito ");
                 a.show();
             }
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR, "Imposible");
+            Alert a = new Alert(AlertType.ERROR, "No es posible registrar los criterios");
             a.show();
         }
     }
@@ -146,18 +147,18 @@ public class Criterio {
             }
         }
         catch(IOException ex){
-            System.out.println(ex.getMessage());
+            Alert a = new Alert(AlertType.ERROR, "No es posible obtener a los criterios");
+            a.show();
         }
         return criterios;
     }
     
-    
     public static Criterio verificarID(int id){
         ArrayList<Criterio> criterios = readFromFile("criterios.txt");
         for(Criterio criterio: criterios){
-            if(!(criterio.id != id))
+            if(criterio.id == id)
                 return criterio;
         }
-        return null
+        return null;
     }
 }
