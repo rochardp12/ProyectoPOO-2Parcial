@@ -56,7 +56,7 @@ public class Criterio {
             this.idConcurso = idConcurso;
         }
         catch(IDConcursoException ex){
-            System.out.println(ex.getMessage());
+
         }
         
     }
