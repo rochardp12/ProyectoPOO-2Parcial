@@ -105,23 +105,24 @@ public class Evaluacion {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public int getIdInscripcion() {
-        return idInscripcion;
+        return this.idInscripcion;
     }
 
     public Inscripcion getInscripcion() {
-        return inscripcion;
+        return this.inscripcion;
     }
 
     public int getIdMiembroJurado() {
-        return idMiembroJurado;
+
+        return this.idMiembroJurado;
     }
 
     public MiembroJurado getMiembroJurado() {
-        return miembroJurado;
+        return this.miembroJurado;
     }
 
     public double getNota() {
@@ -148,7 +149,7 @@ public class Evaluacion {
     }
     
     @Override
-    public boolean equals(Object obj){
+    public boolean equals(Object obj) {
         if(obj==null)
             return false;
         if(this==obj)
@@ -171,25 +172,33 @@ public class Evaluacion {
         }
     }
     
-   public static void crearEvaluacion(MiembroJurado jurado, Inscripcion inscripcion, Criterio criterio, double nota){
+    public static void crearEvaluacion(MiembroJurado jurado, Inscripcion inscripcion, Criterio criterio, double nota){
         Evaluacion evaluacion = new Evaluacion(Util.nextID("evaluaciones.txt"), jurado, inscripcion, criterio, nota);
         evaluacion.saveFile("evaluaciones.txt");
-   }
+    }
    
     public static ArrayList<Evaluacion> readFromFile(String nomfile){
-        List<Evaluacion> evaluaciones = new ArrayList<>();
-        try(BufferedReader bf = new BufferedReader(new fileReader(nomFile))){
+        ArrayList<Evaluacion> evaluaciones = new ArrayList<>();
+        try(BufferedReader bf = new BufferedReader(new FileReader(nomfile))){
             String linea;
             while((linea = bf.readLine()) != null){
-                String[] arreglo = linea.split("\|");
-                Evaluacion evaluaciony = new Evaluacion(Integer.parseInt(arreglo[0]), Miembrojurado.obtenerID(Integer.parseInt(arreglo[2])),Inscripcion.verificarID(Integer.parseInt(arreglo[1])),Criterio.verificarID(Integer.parseInt(arreglo[3])),Double.parseDouble(arreglo[4]));
+                String[] arreglo = linea.split("\\|");
+                Evaluacion evaluacion = new Evaluacion(Integer.parseInt(arreglo[0]), MiembroJurado.obtenerID(Integer.parseInt(arreglo[2])),Inscripcion.verificarID(Integer.parseInt(arreglo[1])),Criterio.verificarID(Integer.parseInt(arreglo[3])),Double.parseDouble(arreglo[4]));
                 evaluaciones.add(evaluacion);
             }
         }
         catch(IOException ex){
-            Alert a = new Alert(AlerType.ERROR,"No es posible obtrer las evaluacioned");
+            Alert a = new Alert(AlertType.ERROR,"No es posible obtener las evaluaciones");
             a.show();
         }
         return evaluaciones;
+    }
+    public static Evaluacion verificarID(int id){
+        List<Evaluacion> evaluaciones = readFromFile("evaluaciones.txt");
+        while(Evaluacion evaluacion: evaluaciones){
+            if(!(evaluacion.id != id))
+                return evaluacion;
+        }
+        return null;
     }    
 }
