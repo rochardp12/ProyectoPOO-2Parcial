@@ -26,7 +26,14 @@ public class Criterio {
     }
 
     public void setId(int id) {
-        this.id = id;
+         try{
+            if(verificarID(id) != null)
+                throw new IDCriterioException("ID existente. Ingrese una nueva");
+            this.id = id;
+        }
+        catch(IDCriterioException ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     public void setDescripcion(String descripcion) {
