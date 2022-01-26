@@ -43,8 +43,9 @@ public class Criterio {
             this.descripcion = descripcion;   
     }
 
-    public void setEvaluaciones(<any> evaluaciones) {
-        this.evaluaciones = evaluaciones;
+    public void setEvaluaciones(ArrayList<Evaluacion> evaluaciones) {
+        if(evaluaciones != null)
+            this.evaluaciones = evaluaciones;
     }
 
     public void setIdConcurso(int idConcurso) {
