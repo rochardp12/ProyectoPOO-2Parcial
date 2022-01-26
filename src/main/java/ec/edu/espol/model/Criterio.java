@@ -5,6 +5,8 @@
  */
 package ec.edu.espol.model;
 
+import ec.edu.espol.util.Util;
+
 /**
  *
  * @author Issac Maza
@@ -96,6 +98,62 @@ public class Criterio {
         return sb.toString();
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null)
+            return false;
+        if(this == obj)
+            return true;
+        if(this.getClass() != obj.getClass())
+            return false;
+        Criterio crit = (Criterio)obj;
+        return Objects.equals(this.descripcion, crit.descripcion);
+    }
+    
+    public void saveFile(String nomFile, int num){
+        try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile, true))){
+            bf.write(this.id + "|" + this.descripcion + "|" + this.evaluaciones + "|" + this.concurso.getId() + "|" + this.concurso.getNombre() + "\n");
+            if(num == 1){
+                Alert a = new Alert(AlertType.CONFIRMATION, "Criterio agregado con éxito");
+                a.show();
+            }
+        }
+        catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    public static void crearCriterio(ArrayList<String> infoCriterios, Concurso concurso){
+        for(int u=0; u < infoCriterios.size(); u++){
+            Criterio criterio = new Criterio(Util.nextID("criterios.txt"), infoCriterios.get(u), concurso);
+            criterio.saveFile("criterio.txt", infoCriterios.size());
+        }
+    }
+    
+    public static ArrayList<Criterio> readFromFile(String nomfile){
+        ArrayList<Criterio> criterios = new ArrayList<>();
+        try(BufferedReader bf = new BufferedReader(new FileReader(nomfile))){
+            String linea;
+            while((linea = bf.readLine()) != null){
+                String[] arreglo = linea.split("\\|");
+                Criterio criterio = new Criterio(Integer.parseInt(arreglo[0]), arreglo[1], Concurso.verificarNombre(arreglo[4]));
+                criterios.add(criterio);
+            
+        }
+        }
+        catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
+        return criterios;
+    }
     
     
+    public static Criterio verificarID(int id){
+        ArrayList<Criterio> criterios = readFromFile("criterios.txt");
+        for(Criterio criterio: criterios){
+            if(criterio.id == id)
+                return criterio;
+        }
+        return null
+    }
 }
