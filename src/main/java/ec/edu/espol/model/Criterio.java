@@ -32,7 +32,8 @@ public class Criterio {
             this.id = id;
         }
         catch(IDCriterioException ex){
-            System.out.println(ex.getMessage());
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
         }
     }
 
