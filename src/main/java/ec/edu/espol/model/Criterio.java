@@ -25,6 +25,7 @@ public class Criterio {
         this.concurso = concurso;
     }
 
+    //setters
     public void setId(int id) {
         try{
             if(verificarID(id) != null)
@@ -49,11 +50,20 @@ public class Criterio {
     }
 
     public void setIdConcurso(int idConcurso) {
-        this.idConcurso = idConcurso;
+        try{
+            if(Concurso.verificarID(idConcurso)==null)
+                throw new IDConcursoException("Id no existente. Ingrese uno correctamente");
+            this.idConcurso = idConcurso;
+        }
+        catch(IDConcursoException ex){
+            System.out.println(ex.getMessage());
+        }
+        
     }
 
     public void setConcurso(Concurso concurso) {
-        this.concurso = concurso;
+        if(concurso != null)
+            this.concurso = concurso;
     }
 
     public int getId() {
