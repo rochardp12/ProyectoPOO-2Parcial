@@ -117,9 +117,14 @@ public class Criterio {
                 Alert a = new Alert(AlertType.CONFIRMATION, "Criterio agregado con éxito");
                 a.show();
             }
+            else{
+                Alert a = new Alert(AlertType.CONFIRMATION, "Agregado ");
+                a.show();
+            }
         }
         catch(IOException ex){
-            System.out.println(ex.getMessage());
+            Alert a = new Alert(AlertType.ERROR, "Imposible");
+            a.show();
         }
     }
     
@@ -138,8 +143,7 @@ public class Criterio {
                 String[] arreglo = linea.split("\\|");
                 Criterio criterio = new Criterio(Integer.parseInt(arreglo[0]), arreglo[1], Concurso.verificarNombre(arreglo[4]));
                 criterios.add(criterio);
-            
-        }
+            }
         }
         catch(IOException ex){
             System.out.println(ex.getMessage());
@@ -151,7 +155,7 @@ public class Criterio {
     public static Criterio verificarID(int id){
         ArrayList<Criterio> criterios = readFromFile("criterios.txt");
         for(Criterio criterio: criterios){
-            if(criterio.id == id)
+            if(!(criterio.id != id))
                 return criterio;
         }
         return null
