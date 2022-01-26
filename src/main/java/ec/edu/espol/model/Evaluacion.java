@@ -21,45 +21,87 @@ public class Evaluacion {
     
     public Evaluacion(int id, MiembroJurado jurado, Inscripcion inscripcion, Criterio criterio, double nota){
         this.id = id;
-        this.idInscripcion = idInscripcion;
+        this.idInscripcion = inscripcion.getId();
         this.inscripcion = inscripcion;
-        this.idMiembroJurado = jurado;
+        this.idMiembroJurado = jurado.getId();
         this.miembroJurado = jurado;
         this.nota = nota;
-        this.idCriterio = idCriterio;
+        this.idCriterio = criterio.getId();
         this.criterio = criterio;
     }
 
     public void setId(int id) {
-        this.id = id;
+        try{
+            if(verificarID(id) != null)
+                throw new IDEvaluacionException("ID existente. Ingrese una nueva");
+            this.id = id;
+        }
+        catch(IDEvaluacionException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
+        }
     }
 
     public void setIdInscripcion(int idInscripcion) {
-        this.idInscripcion = idInscripcion;
+        try{
+            if(Inscripcion.verificarID(idInscripcion) == null)
+                throw new IDInscripcionException("ID no existente. Ingrese correctamente");
+            this.idInscripcion = idInscripcion;
+        }
+        catch(IDInscripcionException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
+        }
     }
 
     public void setInscripcion(Inscripcion inscripcion) {
-        this.inscripcion = inscripcion;
+        if(inscripcion != null)
+            this.inscripcion = inscripcion;
     }
 
     public void setIdMiembroJurado(int idMiembroJurado) {
-        this.idMiembroJurado = idMiembroJurado;
+        try{
+            if(MiembroJurado.obtnerId(idMiembroJurado) == null)
+                throw new IDMiembroJuradoException("ID no existente");
+            this.idMiembroJurado = idMiembroJurado;
+        }
+        catch(IDMiembroJuradoException ex){
+            Alert a = new Alert(Alertype.ERROR, ex.getMessage());
+            a.show();
+        }
     }
 
     public void setMiembroJurado(MiembroJurado miembroJurado) {
-        this.miembroJurado = miembroJurado;
+        if(miembroJurado != null)
+            this.miembroJurado = miembroJurado;
     }
 
     public void setNota(double nota) {
-        this.nota = nota;
+        try{
+            if(nota < 0)
+                throw new NotaException("Ingrese una Nota de evaluación correcta");
+        }
+        catch(NotaException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
+        }
+        
     }
 
     public void setIdCriterio(int idCriterio) {
-        this.idCriterio = idCriterio;
+        try{
+            if(Criterio.verificarID(idCriterio) == null)
+                throw new IDCriterioException("ID no existente. Ingrese correctamente");
+            
+        catch(IDCriterioException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
+        }
     }
 
     public void setCriterio(Criterio criterio) {
-        this.criterio = criterio;
+      if(criterio != null)
+            this.criterio = criterio;
     }
 
     public int getId() {
@@ -97,11 +139,11 @@ public class Evaluacion {
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Id Evaluacion: ").append(" --> ");
-        sb.append("Id Inscripcion: ");
-        sb.append(". ID Miembro del Jurado: ");
-        sb.append(". ID Criterio: ");
-        sb.append("--> Nota: ");
+        sb.append("ID Evaluacion: ").append(this.id).append(" --> ");
+        sb.append("ID Inscripcion: ").append(this.idInscripcion);
+        sb.append(". ID Miembro del Jurado: ").append(this.idMiembroJurado);
+        sb.append(". ID Criterio: ").append(this.idCriterio);
+        sb.append("--> Nota: ").append(this.nota);
         return sb.toString();
     }
     
@@ -109,7 +151,7 @@ public class Evaluacion {
     public boolean equals(Object obj){
         if(obj==null)
             return false;
-        if(this == obj)
+        if(this==obj)
             return true;
         if(this.getClass()!=obj.getClass())
             return false;
@@ -118,7 +160,7 @@ public class Evaluacion {
     }
     
     public void saveFile(String nomfile){
-        try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile, true))){
+        try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile,true))){
             bf.write(this.id + "|" + this.inscripcion.getId() + "|" + this.miembroJurado.getId() + "|" + this.criterio.getId() + "|" + this.nota + "\n");
             Alert a = new Alert(AlertType.CONFIRMATION,"Evaluación agregada con éxito");
             a.show();
@@ -133,4 +175,21 @@ public class Evaluacion {
         Evaluacion evaluacion = new Evaluacion(Util.nextID("evaluaciones.txt"), jurado, inscripcion, criterio, nota);
         evaluacion.saveFile("evaluaciones.txt");
    }
+   
+    public static ArrayList<Evaluacion> readFromFile(String nomfile){
+        List<Evaluacion> evaluaciones = new ArrayList<>();
+        try(BufferedReader bf = new BufferedReader(new fileReader(nomFile))){
+            String linea;
+            while((linea = bf.readLine()) != null){
+                String[] arreglo = linea.split("\|");
+                Evaluacion evaluaciony = new Evaluacion(Integer.parseInt(arreglo[0]), Miembrojurado.obtenerID(Integer.parseInt(arreglo[2])),Inscripcion.verificarID(Integer.parseInt(arreglo[1])),Criterio.verificarID(Integer.parseInt(arreglo[3])),Double.parseDouble(arreglo[4]));
+                evaluaciones.add(evaluacion);
+            }
+        }
+        catch(IOException ex){
+            Alert a = new Alert(AlerType.ERROR,"No es posible obtrer las evaluacioned");
+            a.show();
+        }
+        return evaluaciones;
+    }    
 }
