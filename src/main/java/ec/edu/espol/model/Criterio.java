@@ -75,7 +75,7 @@ public class Criterio {
         return this.descripcion;
     }
 
-    public <any> getEvaluaciones() {
+    public ArrayList<Evaluacion> getEvaluaciones() {
         return this.evaluaciones;
     }
 
