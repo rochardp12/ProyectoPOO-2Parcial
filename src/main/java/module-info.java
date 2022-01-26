@@ -1,6 +1,7 @@
 module ec.edu.espol.proyectopoo {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.base;
 
     opens ec.edu.espol.proyectopoo to javafx.fxml;
     exports ec.edu.espol.proyectopoo;

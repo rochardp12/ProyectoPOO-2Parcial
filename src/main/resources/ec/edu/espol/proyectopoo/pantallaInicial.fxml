@@ -8,65 +8,66 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.PantallaInicialController">
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="ec.edu.espol.controllers.PantallaInicialController">
    <children>
-      <Line endX="474.0" layoutX="115.0" layoutY="161.0" startX="-100.0" />
-      <Label layoutX="217.0" prefHeight="61.0" prefWidth="167.0" text="Concurso" textFill="#943535">
+      <Label layoutX="217.0" layoutY="7.0" prefHeight="61.0" prefWidth="167.0" text="Concurso" textFill="#943535">
          <font>
             <Font name="Comic Sans MS Bold" size="39.0" />
          </font>
       </Label>
-      <Label layoutX="278.0" layoutY="48.0" prefHeight="61.0" prefWidth="48.0" text="de" textFill="#943535">
+      <Label layoutX="276.0" layoutY="58.0" prefHeight="61.0" prefWidth="48.0" text="de" textFill="#943535">
          <font>
             <Font name="Comic Sans MS Bold" size="39.0" />
          </font>
       </Label>
-      <Label layoutX="217.0" layoutY="88.0" prefHeight="61.0" prefWidth="184.0" text="Mascotas" textFill="#943535">
+      <Label layoutX="208.0" layoutY="102.0" prefHeight="61.0" prefWidth="184.0" text="Mascotas" textFill="#943535">
          <font>
             <Font name="Comic Sans MS Bold" size="39.0" />
          </font>
       </Label>
-      <Line endX="339.0" layoutX="177.0" layoutY="192.0" startX="-100.0" />
-      <Line endX="339.0" layoutX="177.0" layoutY="356.0" startX="-100.0" />
-      <Line endX="100.0" endY="16.0" layoutX="-56.0" layoutY="304.0" startX="100.0" startY="-80.0" />
-      <Line endX="100.0" endY="16.0" layoutX="448.0" layoutY="304.0" startX="100.0" startY="-80.0" />
-      <Button fx:id="btnDueno" layoutX="77.0" layoutY="224.0" mnemonicParsing="false" onMouseClicked="#accesoDueno" prefHeight="40.0" prefWidth="84.0" text="Dueño" />
-      <Button fx:id="btnCriterio" layoutX="77.0" layoutY="292.0" mnemonicParsing="false" onMouseClicked="#accesoCriterio" prefHeight="40.0" prefWidth="84.0" text="Criterio" />
-      <Button fx:id="btnMascota" layoutX="194.0" layoutY="224.0" mnemonicParsing="false" onMouseClicked="#accesoMascota" prefHeight="40.0" prefWidth="84.0" text="Mascota" />
-      <Button fx:id="btnConcurso" layoutX="317.0" layoutY="224.0" mnemonicParsing="false" onMouseClicked="#accesoConcurso" prefHeight="40.0" prefWidth="84.0" text="Concurso" />
-      <Button fx:id="btnPremio" layoutX="440.0" layoutY="224.0" mnemonicParsing="false" onMouseClicked="#accesoPremio" prefHeight="40.0" prefWidth="84.0" text="Premio" />
-      <Button fx:id="btnInscripcion" layoutX="194.0" layoutY="292.0" mnemonicParsing="false" onMouseClicked="#accesoInscripcion" prefHeight="40.0" prefWidth="84.0" text="Inscripción" />
-      <Button fx:id="btnJurado" layoutX="317.0" layoutY="292.0" mnemonicParsing="false" onMouseClicked="#accesoJurado" prefHeight="40.0" prefWidth="84.0" text="Jurado" />
-      <Button fx:id="btnEvaluacion" layoutX="440.0" layoutY="292.0" mnemonicParsing="false" onMouseClicked="#accesoEvaluacion" prefHeight="40.0" prefWidth="84.0" text="Evaluación" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="51.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+      <Line endX="474.0" layoutX="113.0" layoutY="171.0" startX="-100.0" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="51.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../img/gato.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="125.0" layoutX="432.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="426.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../img/perro.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="61.0" fitWidth="48.0" layoutX="21.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="50.0" fitWidth="75.0" layoutX="14.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../img/huellas.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="61.0" fitWidth="48.0" layoutX="21.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="50.0" fitWidth="75.0" layoutX="14.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../img/huellas.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="61.0" fitWidth="48.0" layoutX="524.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="50.0" fitWidth="75.0" layoutX="536.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../img/huellas.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="61.0" fitWidth="48.0" layoutX="524.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="50.0" fitWidth="75.0" layoutX="541.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../img/huellas.png" />
          </image>
       </ImageView>
+      <Line endX="339.0" layoutX="180.0" layoutY="200.0" startX="-100.0" />
+      <Line endX="339.0" layoutX="181.0" layoutY="361.0" startX="-100.0" />
+      <Line endX="100.0" endY="16.0" layoutX="-61.0" layoutY="319.0" startX="100.0" startY="-87.0" />
+      <Line endX="100.0" endY="16.0" layoutX="461.0" layoutY="319.0" startX="100.0" startY="-84.0" />
+      <Button fx:id="btnDueno" layoutX="87.0" layoutY="234.0" mnemonicParsing="false" onMouseClicked="#accesoDueno" prefHeight="40.0" prefWidth="84.0" text="Dueño" />
+      <Button fx:id="btnMascota" layoutX="204.0" layoutY="234.0" mnemonicParsing="false" onMouseClicked="#accesoMascota" prefHeight="40.0" prefWidth="84.0" text="Mascota" />
+      <Button fx:id="btnConcurso" layoutX="327.0" layoutY="234.0" mnemonicParsing="false" onMouseClicked="#accesoConcurso" prefHeight="40.0" prefWidth="84.0" text="Concurso" />
+      <Button fx:id="btnPremio" layoutX="450.0" layoutY="234.0" mnemonicParsing="false" onMouseClicked="#accesoPremio" prefHeight="40.0" prefWidth="84.0" text="Premio" />
+      <Button fx:id="btnCriterio" layoutX="87.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#accesoCriterio" prefHeight="40.0" prefWidth="84.0" text="Criterio" />
+      <Button fx:id="btnInscripcion" layoutX="204.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#accesoInscripcion" prefHeight="40.0" prefWidth="84.0" text="Inscripción" />
+      <Button fx:id="btnJurado" layoutX="327.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#accesoJurado" prefHeight="40.0" prefWidth="84.0" text="Jurado" />
+      <Button fx:id="btnEvaluacion" layoutX="450.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#accesoEvaluacion" prefHeight="40.0" prefWidth="84.0" text="Evaluación" />
    </children>
 </AnchorPane>
