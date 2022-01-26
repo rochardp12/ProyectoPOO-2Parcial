@@ -32,7 +32,53 @@ public class Premio {
     private int idConcurso;
     private Concurso concurso;
     //constructor
+    public Premio(int id, int lugar, String descripcion, Concurso concurso){
+        this.id = id;
+        this.lugar = lugar;
+        this.descripcion = descripcion;
+        this.idConcurso = concurso.getId();
+        this.concurso = concurso;
+    }
+    //setters
     
+    public void setId(int id) {
+        try{
+            if(verificarID(id) != null)
+                throw new IDPremioException("ID existente. Ingrese una nueva");
+            this.id = id;
+        }
+        catch(IDPremioException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
+        }
+    }
+    
+    public void setLugar(int lugar) {
+        if(lugar > 0)
+            this.lugar = lugar;
+    }
+
+    public void setDescripcion(String descripcion) {
+        if(descripcion != null)
+            this.descripcion = descripcion;
+    }
+
+    public void setIdConcurso(int idConcurso) {
+        try{
+            if(Concurso.verificarID(idConcurso) == null)
+                throw new IDConcursoException("ID no existente. Ingrese correctamente");
+            this.idConcurso = idConcurso;
+        }
+        catch(IDConcursoException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
+        }
+    }
+
+    public void setConcurso(Concurso concurso) {
+        if(concurso != null)
+            this.concurso = concurso;
+    }
 }
     
     
