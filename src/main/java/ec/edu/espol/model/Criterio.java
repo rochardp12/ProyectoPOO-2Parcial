@@ -23,5 +23,48 @@ public class Criterio {
         this.evaluaciones = new ArrayList<>();
         this.idConcurso = concurso.getId();
         this.concurso = concurso;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setEvaluaciones(<any> evaluaciones) {
+        this.evaluaciones = evaluaciones;
+    }
+
+    public void setIdConcurso(int idConcurso) {
+        this.idConcurso = idConcurso;
+    }
+
+    public void setConcurso(Concurso concurso) {
+        this.concurso = concurso;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public <any> getEvaluaciones() {
+        return evaluaciones;
+    }
+
+    public int getIdConcurso() {
+        return idConcurso;
+    }
+
+    public Concurso getConcurso() {
+        return concurso;
+    }
+    
+    
     
 }
