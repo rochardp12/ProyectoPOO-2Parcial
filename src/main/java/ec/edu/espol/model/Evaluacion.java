@@ -194,9 +194,9 @@ public class Evaluacion {
         return evaluaciones;
     }
     public static Evaluacion verificarID(int id){
-        List<Evaluacion> evaluaciones = readFromFile("evaluaciones.txt");
-        while(Evaluacion evaluacion: evaluaciones){
-            if(!(evaluacion.id != id))
+        ArrayList<Evaluacion> evaluaciones = readFromFile("evaluaciones.txt");
+        for(Evaluacion evaluacion: evaluaciones){
+            if(evaluacion.id == id)
                 return evaluacion;
         }
         return null;
