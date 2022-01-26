@@ -141,6 +141,39 @@ public class Premio {
             a.show();
         }
     }
+    
+    public static void crearPremio(ArrayList<String> infoPremios, Concurso concurso){
+        for(int u = 0; u < infoPremios.size(); u++){
+            Premio premio = new Premio(Util.nextID("premios.txt"), u+1, infoPremios.get(u), concurso);
+            premio.saveFile("premios.txt", infoPremios.size());
+        }
+    }
+    
+    public static ArrayList<Premio> readFromFile(String nomfile){
+        ArrayList<Premio> premios = new ArrayList<>();
+        try(BufferedReader bf = new BufferedReader(new FileReader(nomfile))){
+            String linea;
+            while((linea = bf.readLine()) != null){
+                String[] arreglo = linea.split("\\|");
+                Premio premio = new Premio(Integer.parseInt(arreglo[0]), Integer.parseInt(arreglo[1]),arreglo[2],Concurso.verificarNombre(arreglo[4]));
+                premios.add(premio);
+            }
+        }
+        catch(IOException ex){
+            Alert a = new Alert(AlertType.ERROR,"No es posible obtener a los premios");
+            a.show();
+        }
+        return premios;
+        }
+    
+    public static Premio verificarID(int id){
+        ArrayList<Premio> premios = readFromFile("premios.txt");
+        for(Premio premio: premios){
+            if(premio.id == id)
+                return premio;
+        }
+        return null;
+    }
 }
     
     
