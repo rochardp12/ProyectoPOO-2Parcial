@@ -79,6 +79,68 @@ public class Premio {
         if(concurso != null)
             this.concurso = concurso;
     }
+    
+    //getters
+
+    public int getId() {
+        return this.id;
+    }
+
+    public int getLugar() {
+        return this.lugar;
+    }
+
+    public String getDescripcion() {
+        return this.descripcion;
+    }
+
+    public int getIdConcurso() {
+        return this.idConcurso;
+    }
+
+    public Concurso getConcurso() {
+        return this.concurso;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID Premio: ").append(this.id).append(" --> ");
+        sb.append("Lugar: ").append(this.lugar);
+        sb.append(". Descripcion: ").append(this.descripcion);
+        sb.append("--> ID Concurso: ").append(this.idConcurso);
+        return sb.toString();
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if(obj==null)
+            return false;
+        if(this==obj)
+            return true;
+        if(this.getClass()!=obj.getClass())
+            return false;
+        Premio premio = (Premio)obj;
+        return Objects.equals(this.descripcion,premio.descripcion);
+    }
+    
+    public void saveFile(String nomfile, int num){
+        try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile,true))){
+            bf.write(this.id + "|" + this.lugar + "|" + this.descripcion + "|" + this.concurso.getId() + "|" + this.concurso.getNombre() + "\n");
+            if(num == 1){
+                Alert a = new Alert(AlertType.CONFIRMATION,"Premio agregado con éxito");
+                a.show();
+            }
+            else{
+                Alert a = new Alert(AlertType.CONFIRMATION,"Premios agregados con éxito");
+                a.show();
+            }
+        }
+        catch(IOException ex){
+            Alert a = new Alert(AlertType.ERROR,"No es posible registrar los premios");
+            a.show();
+        }
+    }
 }
     
     
