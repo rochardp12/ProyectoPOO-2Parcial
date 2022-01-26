@@ -83,15 +83,54 @@ public class Evaluacion {
     }
 
     public double getNota() {
-        return nota;
+        return this.nota;
     }
 
     public int getIdCriterio() {
-        return idCriterio;
+        return this.idCriterio;
     }
 
     public Criterio getCriterio() {
-        return criterio;
+        return this.criterio;
     }
     
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Id Evaluacion: ").append(" --> ");
+        sb.append("Id Inscripcion: ");
+        sb.append(". ID Miembro del Jurado: ");
+        sb.append(". ID Criterio: ");
+        sb.append("--> Nota: ");
+        return sb.toString();
+    }
+    
+    @Override
+    public boolean equals(Object obj){
+        if(obj==null)
+            return false;
+        if(this == obj)
+            return true;
+        if(this.getClass()!=obj.getClass())
+            return false;
+        Evaluacion evaluacion = (Evaluacion)obj;
+        return (((evaluacion.idInscripcion == this.idInscripcion)&&(evaluacion.idMiembroJurado == this.idMiembroJurado))&&(evaluacion.idCriterio == this.idCriterio));
+    }
+    
+    public void saveFile(String nomfile){
+        try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile, true))){
+            bf.write(this.id + "|" + this.inscripcion.getId() + "|" + this.miembroJurado.getId() + "|" + this.criterio.getId() + "|" + this.nota + "\n");
+            Alert a = new Alert(AlertType.CONFIRMATION,"Evaluación agregada con éxito");
+            a.show();
+        }
+        catch(IOException ex){
+            Alert a = new Alert(AlertType.ERROR,"No es posible registrar la evaluación");
+            a.show();
+        }
+    }
+    
+   public static void crearEvaluacion(MiembroJurado jurado, Inscripcion inscripcion, Criterio criterio, double nota){
+        Evaluacion evaluacion = new Evaluacion(Util.nextID("evaluaciones.txt"), jurado, inscripcion, criterio, nota);
+        evaluacion.saveFile("evaluaciones.txt");
+   }
 }
