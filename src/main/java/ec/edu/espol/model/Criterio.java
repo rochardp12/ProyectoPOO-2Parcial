@@ -56,7 +56,8 @@ public class Criterio {
             this.idConcurso = idConcurso;
         }
         catch(IDConcursoException ex){
-
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
         }
         
     }
@@ -67,23 +68,32 @@ public class Criterio {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public String getDescripcion() {
-        return descripcion;
+        return this.descripcion;
     }
 
     public <any> getEvaluaciones() {
-        return evaluaciones;
+        return this.evaluaciones;
     }
 
     public int getIdConcurso() {
-        return idConcurso;
+        return this.idConcurso;
     }
 
     public Concurso getConcurso() {
-        return concurso;
+        return this.concurso;
+    }
+    
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID Criterio: ").append(this.id).append(" --> ");
+        sb.append("Descripcion: ").append(this.descripcion);
+        sb.append(" --> ID Concurso: ").append(this.idConcurso);
+        return sb.toString();
     }
     
     
