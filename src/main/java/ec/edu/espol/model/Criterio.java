@@ -41,7 +41,7 @@ public class Criterio {
         this.concurso = concurso;
     }
 
-    //setters
+
     public void setId(int id) {
         try{
             if(verificarID(id) != null)
@@ -122,7 +122,7 @@ public class Criterio {
         return Objects.equals(this.descripcion, crit.descripcion);
     }
     
-    public void saveFile(String nomFile, int num){
+    public void saveFile(String nomfile, int num){
         try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile, true))){
             bf.write(this.id + "|" + this.descripcion + "|" + this.evaluaciones + "|" + this.concurso.getId() + "|" + this.concurso.getNombre() + "\n");
             if(num == 1){
@@ -130,7 +130,7 @@ public class Criterio {
                 a.show();
             }
             else{
-                Alert a = new Alert(AlertType.CONFIRMATION, "Criterio agregados con éxito ");
+                Alert a = new Alert(AlertType.CONFIRMATION, "Criterios agregados con éxito ");
                 a.show();
             }
         }
@@ -143,7 +143,7 @@ public class Criterio {
     public static void crearCriterio(ArrayList<String> infoCriterios, Concurso concurso){
         for(int u=0; u < infoCriterios.size(); u++){
             Criterio criterio = new Criterio(Util.nextID("criterios.txt"), infoCriterios.get(u), concurso);
-            criterio.saveFile("criterio.txt", infoCriterios.size());
+            criterio.saveFile("criterios.txt", infoCriterios.size());
         }
     }
     
