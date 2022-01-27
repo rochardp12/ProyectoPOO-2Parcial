@@ -28,7 +28,7 @@ public class Evaluacion {
         this.nota = nota;
         this.idCriterio = criterio.getId();
         this.criterio = criterio;
-    }
+        }
 
     public void setId(int id) {
         try{
@@ -61,12 +61,12 @@ public class Evaluacion {
 
     public void setIdMiembroJurado(int idMiembroJurado) {
         try{
-            if(MiembroJurado.obtnerId(idMiembroJurado) == null)
-                throw new IDMiembroJuradoException("ID no existente");
+            if(MiembroJurado.obtenerID(idMiembroJurado) == null)
+                throw new IDMiembroJuradoException("ID no existente. Ingrese correctamente");
             this.idMiembroJurado = idMiembroJurado;
         }
         catch(IDMiembroJuradoException ex){
-            Alert a = new Alert(Alertype.ERROR, ex.getMessage());
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -80,19 +80,20 @@ public class Evaluacion {
         try{
             if(nota < 0)
                 throw new NotaException("Ingrese una Nota de evaluación correcta");
+            this.nota = nota;
         }
         catch(NotaException ex){
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
         }
-        
     }
 
     public void setIdCriterio(int idCriterio) {
         try{
             if(Criterio.verificarID(idCriterio) == null)
                 throw new IDCriterioException("ID no existente. Ingrese correctamente");
-            
+            this.idCriterio = idCriterio;
+        }
         catch(IDCriterioException ex){
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
@@ -100,7 +101,7 @@ public class Evaluacion {
     }
 
     public void setCriterio(Criterio criterio) {
-      if(criterio != null)
+        if(criterio != null)
             this.criterio = criterio;
     }
 
@@ -117,7 +118,6 @@ public class Evaluacion {
     }
 
     public int getIdMiembroJurado() {
-
         return this.idMiembroJurado;
     }
 
@@ -138,7 +138,7 @@ public class Evaluacion {
     }
     
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("ID Evaluacion: ").append(this.id).append(" --> ");
         sb.append("ID Inscripcion: ").append(this.idInscripcion);
@@ -176,7 +176,7 @@ public class Evaluacion {
         Evaluacion evaluacion = new Evaluacion(Util.nextID("evaluaciones.txt"), jurado, inscripcion, criterio, nota);
         evaluacion.saveFile("evaluaciones.txt");
     }
-   
+    
     public static ArrayList<Evaluacion> readFromFile(String nomfile){
         ArrayList<Evaluacion> evaluaciones = new ArrayList<>();
         try(BufferedReader bf = new BufferedReader(new FileReader(nomfile))){
@@ -193,6 +193,7 @@ public class Evaluacion {
         }
         return evaluaciones;
     }
+    
     public static Evaluacion verificarID(int id){
         ArrayList<Evaluacion> evaluaciones = readFromFile("evaluaciones.txt");
         for(Evaluacion evaluacion: evaluaciones){
@@ -200,5 +201,5 @@ public class Evaluacion {
                 return evaluacion;
         }
         return null;
-    }    
+    }   
 }
