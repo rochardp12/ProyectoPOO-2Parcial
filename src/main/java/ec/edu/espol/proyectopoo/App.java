@@ -23,9 +23,10 @@ public class App extends Application {
         scene = new Scene(loadFXML("pantallaInicial").load(), 600, 400);
         stage.setScene(scene);
         stage.setTitle("Concurso de Mascotas");
-        String rut = System.getProperty("user.dir") + "/src/main/resources/img/icono.png";
-        Path ruta = Paths.get(rut);
-        Image imagen = new Image("file:" + ruta);
+//        String rut = System.getProperty("user.dir") + "/src/main/resources/img/icono.png";
+//        Path ruta = Paths.get(rut);
+//        Image imagen = new Image("file:" + ruta);
+        Image imagen = new Image("img\\icono.png");
         stage.getIcons().add(imagen);
         stage.show();
     }

@@ -1,4 +1,5 @@
-module-info.class
-ec\edu\espol\proyectopoo\App.class
-ec\edu\espol\controllers\PantallaInicialController.class
 ec\edu\espol\util\Util.class
+module-info.class
+ec\edu\espol\controllers\PantallaInicialController.class
+ec\edu\espol\proyectopoo\App.class
+ec\edu\espol\model\IDPremioException.class
