@@ -184,7 +184,7 @@ public class Inscripcion {
         }
     }
     
-        public static void crearInscripcion(Mascota mascota, Concurso concurso, double valor, LocalDate fechaInscripcion){
+    public static void crearInscripcion(Mascota mascota, Concurso concurso, double valor, LocalDate fechaInscripcion){
         Inscripcion inscripcion = new Inscripcion(Util.nextID("inscripciones.txt"), mascota, concurso, valor, fechaInscripcion);
         inscripcion.saveFile("inscripciones.txt");
     }
@@ -216,7 +216,4 @@ public class Inscripcion {
         }
         return null;
     }
-    
-    
-    
-    }
+}
