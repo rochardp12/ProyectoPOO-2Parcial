@@ -9,6 +9,9 @@ package ec.edu.espol.model;
  *
  * @author Richard
  */
-public class CantidadException {
+public class CantidadException extends Exception{
     
+    public CantidadException(String msg){
+        super(msg);
+    }
 }

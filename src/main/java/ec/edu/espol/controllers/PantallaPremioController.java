@@ -5,9 +5,13 @@
  */
 package ec.edu.espol.controllers;
 
+import ec.edu.espol.model.CantidadException;
+import ec.edu.espol.model.Concurso;
+import ec.edu.espol.model.NombreConcursoException;
 import ec.edu.espol.proyectopoo.App;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,22 +48,64 @@ public class PantallaPremioController implements Initializable {
     private Label textoDescripcion;
     @FXML
     private Button btnRegresar;
+    
+    private int cantPremio;
+    
+    private int cantDescrip;
+    
+    private ArrayList<String> infoPremios;
+    
+    private TextField infDescripcion;
+    
+    private Button btnDescripcion;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        btnPremio.setDisable(true);
+        infPremio.setDisable(true);
     }    
 
     @FXML
     private void buscarConcurso(MouseEvent event) {
+        try{
+            if(Concurso.verificarNombre(infNombre.getText()) == null)
+                throw new NombreConcursoException("Nombre de concurso incorrecto. Verificar o registrarlo primero");
+            btnPremio.setDisable(false);
+            infPremio.setDisable(false);
+        }catch(NombreConcursoException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
+        }
     }
 
     @FXML
     private void cantidadPremios(MouseEvent event) {
-    }
+        try{
+            cantPremio = Integer.parseInt(infPremio.getText());
+            if(cantPremio <= 0)
+                throw new CantidadException("Ingrese cantidad correcta de premios");
+            infoPremios = new ArrayList<>();
+            if(cantPremio > 1){
+                cantDescrip = 1;
+                textoDescripcion.setText("Ingrese descripción del premio 1");
+                cantDescrip++;
+            }
+            else
+                textoDescripcion.setText("Ingrese descripción del premio");
+            infDescripcion = new TextField();
+            infDescripcion.setLayoutX(145);
+            infDescripcion.setLayoutX(278);
+            panelPrincipal.getChildren().add(infDescripcion);
+            btnDescripcion = new Button();
+            btnDescripcion.setLayoutX(371);
+            btnDescripcion.setLayoutY(278);
+            btnDescripcion.setText("Guardar");
+            }
+        }
+    
 
     @FXML
     private void enviarDatos(MouseEvent event) {
