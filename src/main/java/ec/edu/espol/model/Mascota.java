@@ -237,5 +237,47 @@ public class Mascota {
         }
     }
     
+    public static String buscarImagen(Mascota mascota, String nombreArchivo) {
+        try(BufferedReader bf = new BufferedReader(new FileReader(nombreArchivo))){
+            String linea;
+            while((linea = bf.readLine()) != null){
+                String[] info = linea.split("\\|");
+                if(Integer.parseInt(info[0]) == mascota.id)
+                    return info[1];
+            }
+        } 
+        catch (IOException ex) {
+            Alert a = new Alert(AlertType.ERROR,"No es posible cargar la imagen de la mascota");
+            a.show();
+        }
+        return null;
+    }
     
- }
+    public static void guardarImagen(File file){
+        if(file != null){
+                try{
+                    String dest;
+                    if(file.getPath().endsWith(".jpg")){
+                        dest = System.getProperty("user.dir") + "/src/main/resources/imgMascotas/" + Util.nextID("mascotas.txt") + ".jpg";
+                        agregarImagen(Util.nextID("mascotas.txt") + ".jpg", "imagenesMascotas.txt");
+                    }
+                    else if(file.getPath().endsWith(".png")){
+                        dest = System.getProperty("user.dir") + "/src/main/resources/imgMascotas/" + Util.nextID("mascotas.txt") + ".png";
+                        agregarImagen(Util.nextID("mascotas.txt") + ".png", "imagenesMascotas.txt");
+                    }
+                    else{
+                        dest = System.getProperty("user.dir") + "/src/main/resources/imgMascotas/" + Util.nextID("mascotas.txt") + ".gif";
+                        agregarImagen(Util.nextID("mascotas.txt") + ".gif", "imagenesMascotas.txt");
+                    }
+                    Path destino = Paths.get(dest);
+                    String orig = file.getPath();
+                    Path origen = Paths.get(orig);
+                    Files.copy(origen, destino, REPLACE_EXISTING);
+                }
+                catch(IOException ex){
+                    Alert a = new Alert(AlertType.ERROR, "ERROR al cargar imagen");
+                    a.show();
+                }
+            }
+    }
+}
