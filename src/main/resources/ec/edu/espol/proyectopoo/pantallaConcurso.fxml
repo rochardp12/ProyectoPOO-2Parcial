@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.PantallaConcursoController">
+   <children>
+      <Line endX="473.0" layoutX="113.0" layoutY="75.0" startX="-100.0" />
+      <Label layoutX="220.0" layoutY="14.0" text="Concurso" textFill="#94682e">
+         <font>
+            <Font name="Comic Sans MS Bold" size="38.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="42.0" fitWidth="60.0" layoutX="395.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../img/huellas.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="42.0" fitWidth="60.0" layoutX="167.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../img/huellas.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="99.0" layoutY="94.0" text="Nombre">
+         <font>
+            <Font name="Courier New Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="131.0" text="Fecha a realizarse">
+         <font>
+            <Font name="Courier New Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="169.0" text="Inicio de inscripción">
+         <font>
+            <Font name="Courier New Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="208.0" text="Cierre de inscripción">
+         <font>
+            <Font name="Courier New Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="75.0" layoutY="244.0" text="Temática">
+         <font>
+            <Font name="Courier New Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="19.0" layoutY="282.0" text="Costo de inscripción">
+         <font>
+            <Font name="Courier New Bold" size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="infNombre" layoutX="342.0" layoutY="94.0" />
+      <TextField fx:id="infDiaFecha" layoutX="321.0" layoutY="131.0" prefHeight="25.0" prefWidth="42.0" />
+      <Label layoutX="374.0" layoutY="131.0" text="/">
+         <font>
+            <Font name="Courier New Bold" size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="infMesFecha" layoutX="396.0" layoutY="131.0" prefHeight="25.0" prefWidth="42.0" />
+      <TextField fx:id="infAnFecha" layoutX="483.0" layoutY="131.0" prefHeight="25.0" prefWidth="58.0" />
+      <Label layoutX="454.0" layoutY="131.0" text="/">
+         <font>
+            <Font name="Courier New Bold" size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="infDiaIns" layoutX="321.0" layoutY="169.0" prefHeight="25.0" prefWidth="42.0" />
+      <TextField fx:id="infdiaCie" layoutX="321.0" layoutY="208.0" prefHeight="25.0" prefWidth="42.0" />
+      <TextField fx:id="infMesIns" layoutX="395.0" layoutY="169.0" prefHeight="25.0" prefWidth="42.0" />
+      <TextField fx:id="infMesCie" layoutX="396.0" layoutY="208.0" prefHeight="25.0" prefWidth="42.0" />
+      <TextField fx:id="infAnIns" layoutX="483.0" layoutY="169.0" prefHeight="25.0" prefWidth="58.0" />
+      <TextField fx:id="infAnCie" layoutX="483.0" layoutY="208.0" prefHeight="25.0" prefWidth="58.0" />
+      <Label layoutX="374.0" layoutY="169.0" text="/">
+         <font>
+            <Font name="Courier New Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="374.0" layoutY="208.0" text="/">
+         <font>
+            <Font name="Courier New Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="454.0" layoutY="170.0" text="/">
+         <font>
+            <Font name="Courier New Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="454.0" layoutY="208.0" text="/">
+         <font>
+            <Font name="Courier New Bold" size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="infTematica" layoutX="343.0" layoutY="244.0" />
+      <TextField fx:id="infCostoIns" layoutX="395.0" layoutY="282.0" prefHeight="25.0" prefWidth="51.0" />
+      <Label layoutX="374.0" layoutY="282.0" text="\$">
+         <font>
+            <Font name="Courier New Bold" size="19.0" />
+         </font>
+      </Label>
+      <Button layoutX="68.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#enviarDatos" prefHeight="35.0" prefWidth="92.0" text="REGISTRAR" />
+      <Button layoutX="220.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#limpiar" prefHeight="35.0" prefWidth="191.0" text="REGISTRAR NUEVO CONCURSO" />
+      <Button fx:id="btnRegresar" layoutX="460.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#regresarPrincipal" prefHeight="35.0" prefWidth="92.0" text="REGRESAR" />
+   </children>
+</AnchorPane>
