@@ -89,6 +89,8 @@ public class PantallaMascotaController implements Initializable {
             int an = Integer.parseInt(infAn.getText());
             if((dia<=0) || (dia>31))
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
+            if((mes<=0) || (mes>12))
+                throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
             if(((dia >= 30)&&((mes == 2)||(mes == 02))))
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
             if(an < 2022)

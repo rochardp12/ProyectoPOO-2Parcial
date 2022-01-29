@@ -79,6 +79,8 @@ public class PantallaConcursoController implements Initializable {
             double costo = Double.parseDouble(infCostoIns.getText());
             if((diaFe<=0) || (diaFe>31) || (diaIns<=0) || (diaIns>31) || (diaCie<=0) || (diaCie>31))
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
+            if((mesFe<=0) || (mesFe>12) || (mesIns<=0) || (mesIns>12) || (mesCie<=0) || (mesCie>12))
+                throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
             if(((diaFe >= 30)&&((mesFe == 2)||(mesFe == 02))) || ((diaIns >= 30)&&((mesIns == 2)||(mesIns == 02))) || ((diaCie >= 30)&&((mesCie == 2)||(mesCie == 02))))
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
             if((anFe < 2022) || (anIns < 2022) || (anCie < 2022))
