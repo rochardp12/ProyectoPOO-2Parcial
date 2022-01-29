@@ -197,7 +197,11 @@ public class Concurso {
         }
     }
     
- 
+    public static void crearConcurso(String nombre, LocalDate fecha, LocalDate fechaIns, LocalDate fechaCie, String tematica, double costo){
+        Concurso concurso = new Concurso(Util.nextID("concursos.txt"), nombre, fecha, fechaIns, fechaCie, tematica, costo);
+        concurso.saveFile("concursos.txt");
+    }
+
     
     public static ArrayList<Concurso> readFromFile(String nomfile){
         ArrayList<Concurso> concursos = new ArrayList<>();
@@ -231,4 +235,12 @@ public class Concurso {
         return null;
     }
     
+    public static Concurso verificarID(int id) throws IDConcursoException{
+        ArrayList<Concurso> concursos = readFromFile("concursos.txt");
+        for(Concurso concurso: concursos){
+            if(concurso.id == id)
+                return concurso;
+        }
+        return null;
+    }
 }
