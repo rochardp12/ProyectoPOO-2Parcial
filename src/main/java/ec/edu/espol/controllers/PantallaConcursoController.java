@@ -6,9 +6,11 @@
 package ec.edu.espol.controllers;
 
 import ec.edu.espol.model.FechaInvalidaException;
+import ec.edu.espol.model.PanelVacioException;
 import ec.edu.espol.proyectopoo.App;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -67,6 +69,10 @@ public class PantallaConcursoController implements Initializable {
     @FXML
     private void enviarDatos(MouseEvent event) {
         try{
+            if(Objects.equals(infNombre.getText(),"") || Objects.equals(infDiaFecha.getText(),"") || Objects.equals(infMesFecha.getText(),"") || Objects.equals(infAnFecha.getText(),"") 
+                    || Objects.equals(infDiaIns.getText(),"") || Objects.equals(infMesIns.getText(),"") || Objects.equals(infAnIns.getText(),"") || Objects.equals(infdiaCie.getText(),"")
+                    || Objects.equals(infMesCie.getText(),"") || Objects.equals(infAnCie.getText(),"") || Objects.equals(infTematica.getText(),"") || Objects.equals(infCostoIns.getText(),""))
+                throw new PanelVacioException("Obligatorio llenar todos los datos");
             int diaFe = Integer.parseInt(infDiaFecha.getText());
             int mesFe = Integer.parseInt(infMesFecha.getText());
             int anFe = Integer.parseInt(infAnFecha.getText());
@@ -85,6 +91,10 @@ public class PantallaConcursoController implements Initializable {
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
             if((anFe < 2022) || (anIns < 2022) || (anCie < 2022))
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
+        }
+        catch(PanelVacioException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
         }
         catch(NumberFormatException ex){
             Alert a = new Alert(AlertType.ERROR, "Ingresar numeros correctos");

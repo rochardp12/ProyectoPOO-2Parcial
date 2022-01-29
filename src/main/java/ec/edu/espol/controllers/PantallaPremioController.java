@@ -8,10 +8,12 @@ package ec.edu.espol.controllers;
 import ec.edu.espol.model.CantidadException;
 import ec.edu.espol.model.Concurso;
 import ec.edu.espol.model.NombreConcursoException;
+import ec.edu.espol.model.PanelVacioException;
 import ec.edu.espol.proyectopoo.App;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -71,11 +73,13 @@ public class PantallaPremioController implements Initializable {
     @FXML
     private void buscarConcurso(MouseEvent event) {
         try{
+            if(Objects.equals(infNombre.getText(),""))
+                throw new PanelVacioException("Ingrese un nombre de concurso");
             if(Concurso.verificarNombre(infNombre.getText()) == null)
                 throw new NombreConcursoException("Nombre de concurso incorrecto. Verificar o registrarlo primero");
             btnPremio.setDisable(false);
             infPremio.setDisable(false);
-        }catch(NombreConcursoException ex){
+        }catch(PanelVacioException | NombreConcursoException ex){
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
         }
@@ -84,6 +88,8 @@ public class PantallaPremioController implements Initializable {
     @FXML
     private void cantidadPremios(MouseEvent event) {
         try{
+            if(Objects.equals(infPremio.getText(),""))
+                throw new PanelVacioException("Ingrese cantidad de premios");
             cantPremio = Integer.parseInt(infPremio.getText());
             if(cantPremio <= 0)
                 throw new CantidadException("Ingrese cantidad correcta de premios");
@@ -97,13 +103,25 @@ public class PantallaPremioController implements Initializable {
                 textoDescripcion.setText("Ingrese descripción del premio");
             infDescripcion = new TextField();
             infDescripcion.setLayoutX(145);
-            infDescripcion.setLayoutX(278);
+            infDescripcion.setLayoutY(278);
             panelPrincipal.getChildren().add(infDescripcion);
             btnDescripcion = new Button();
             btnDescripcion.setLayoutX(371);
             btnDescripcion.setLayoutY(278);
             btnDescripcion.setText("Guardar");
-            }
+        }
+        catch(PanelVacioException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
+        }
+        catch(NumberFormatException ex){
+            Alert a = new Alert(AlertType.ERROR, "Ingresar números correctos");
+            a.show();
+        }
+        catch(CantidadException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
+        }    
         }
     
 
@@ -117,6 +135,7 @@ public class PantallaPremioController implements Initializable {
         infPremio.setText("");
         btnPremio.setDisable(true);
         textoDescripcion.setText("");
+        panelPrincipal.getChildren().clear();
     }
 
     @FXML

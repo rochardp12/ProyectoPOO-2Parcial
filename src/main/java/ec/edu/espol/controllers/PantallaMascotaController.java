@@ -7,12 +7,14 @@ package ec.edu.espol.controllers;
 
 import ec.edu.espol.model.FechaInvalidaException;
 import ec.edu.espol.model.Mascota;
+import ec.edu.espol.model.PanelVacioException;
 import ec.edu.espol.proyectopoo.App;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,6 +86,11 @@ public class PantallaMascotaController implements Initializable {
     @FXML
     private void enviarDatos(MouseEvent event) {
         try{
+            if(Objects.equals(infNombre.getText(),"") || Objects.equals(infRaza.getText(),"") || Objects.equals(infTipo.getText(),"") || Objects.equals(infEmail.getText(),"")
+                    || Objects.equals(infDia.getText(),"") || Objects.equals(infMes.getText(),"") || Objects.equals(infAn.getText(),""))
+                throw new PanelVacioException("Obligatorio llenar todos los datos");
+            if(imgnMascota.getImage() == null)
+                throw new PanelVacioException("Obligatorio subir imagen de la mascota");
             int dia = Integer.parseInt(infDia.getText());
             int mes = Integer.parseInt(infMes.getText());
             int an = Integer.parseInt(infAn.getText());
@@ -96,6 +103,10 @@ public class PantallaMascotaController implements Initializable {
             if(an < 2022)
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
             Mascota.guardarImagen(archivoImagen);
+        }
+        catch(PanelVacioException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
         }
         catch(NumberFormatException ex){
             Alert a = new Alert(AlertType.ERROR,"Ingresar números correctos");
