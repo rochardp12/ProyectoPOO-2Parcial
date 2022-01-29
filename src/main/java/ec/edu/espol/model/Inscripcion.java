@@ -184,4 +184,39 @@ public class Inscripcion {
         }
     }
     
+        public static void crearInscripcion(Mascota mascota, Concurso concurso, double valor, LocalDate fechaInscripcion){
+        Inscripcion inscripcion = new Inscripcion(Util.nextID("inscripciones.txt"), mascota, concurso, valor, fechaInscripcion);
+        inscripcion.saveFile("inscripciones.txt");
+    }
+    
+    public static ArrayList<Inscripcion> readFromFile(String nomfile){
+        ArrayList<Inscripcion> inscripciones = new ArrayList<>();
+        try(BufferedReader bf = new BufferedReader(new FileReader(nomfile))){
+            String linea;
+            while((linea = bf.readLine()) != null){
+                String[] arreglo = linea.split("\\|");
+                String[] fecha = arreglo[6].split("-");
+                LocalDate fechaInscripcion = LocalDate.of(Integer.parseInt(fecha[0]),Integer.parseInt(fecha[1]),Integer.parseInt(fecha[2]));
+                Inscripcion inscripcion = new Inscripcion(Integer.parseInt(arreglo[0]), Mascota.verificarNombre(arreglo[2]), Concurso.verificarNombre(arreglo[4]), Double.parseDouble(arreglo[5]), fechaInscripcion);
+                inscripciones.add(inscripcion);
+            }
+        }
+        catch(IOException ex){
+            Alert a = new Alert(AlertType.ERROR,"No es posible obtener las inscripciones");
+            a.show();
+        }
+        return inscripciones;
+    }
+    
+    public static Inscripcion verificarID(int id){
+        ArrayList<Inscripcion> inscripciones = readFromFile("inscripciones.txt");
+        for(Inscripcion inscripcion: inscripciones){
+            if(inscripcion.id == id)
+                return inscripcion;
+        }
+        return null;
+    }
+    
+    
+    
     }
