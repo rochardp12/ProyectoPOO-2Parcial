@@ -6,6 +6,7 @@
 package ec.edu.espol.controllers;
 
 import ec.edu.espol.model.FechaInvalidaException;
+import ec.edu.espol.model.Mascota;
 import ec.edu.espol.proyectopoo.App;
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +55,8 @@ public class PantallaMascotaController implements Initializable {
     private Button btnBuscar;
     @FXML
     private Button btnRegresar;
+    
+    File archivoImagen;
 
     /**
      * Initializes the controller class.
@@ -69,7 +72,7 @@ public class PantallaMascotaController implements Initializable {
         fc.setTitle("Buscar Imagen de Mascota");
             fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files","*.png","*.jpg","*.gif"));
             Stage stage = (Stage)btnBuscar.getScene().getWindow();
-            File archivoImagen = fc.showOpenDialog(stage);
+            archivoImagen = fc.showOpenDialog(stage);
             if(archivoImagen != null){
                     String orig = archivoImagen.getPath();
                     Path origen = Paths.get(orig);
@@ -90,7 +93,7 @@ public class PantallaMascotaController implements Initializable {
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
             if(an < 2022)
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
-            
+            Mascota.guardarImagen(archivoImagen);
         }
         catch(NumberFormatException ex){
             Alert a = new Alert(AlertType.ERROR,"Ingresar números correctos");
