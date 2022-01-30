@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package ec.edu.espol.model;
+
 import ec.edu.espol.util.Util;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,110 +16,96 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ec.edu.espol.model.Persona;
 
 /**
  *
  * @author Issac Maza
  */
-public class Dueno extends Persona{
+public class Dueno {
+    private int id;
+    private String nombres;
+    private String apellidos;
     private String direccion;
+    private String telefono;
+    private String email;
     private ArrayList<Mascota> mascotas;
     
-    public  Dueno(int id, String nombres, String apellidos, String telefono, String email,String direccion){
-        super(id,nombres,apellidos,telefono,email);
+    public  Dueno(int id, String nombres, String apellidos,String direccion, String telefono, String email){
+        this.id = id;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
         this.direccion=direccion;
+        this.telefono = telefono;
+        this.email = email;
         this.mascotas= new ArrayList<>();
     }
-       
-    
-   
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public void setMascotas(ArrayList<Mascota> mascotas) {
-        this.mascotas = mascotas;
-    }
-
-    @Override
     public void setId(int id) {
         this.id = id;
     }
 
-    @Override
     public void setNombres(String nombres) {
         this.nombres = nombres;
     }
 
-    @Override
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
-
-    @Override
+    
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+    
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    @Override
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getDireccion() {
-        return direccion;
+    
+    public void setMascotas(ArrayList<Mascota> mascotas) {
+        this.mascotas = mascotas;
     }
     
-    @Override
     public int getId() {
         return id;
     }
 
-    @Override
     public String getNombres() {
         return nombres;
 }
 
-    @Override
     public String getApellidos() {
         return apellidos;
     }
+    
+    public String getDireccion() {
+        return direccion;
+    }
 
-    @Override
     public String getTelefono() {
         return telefono;
     }
 
-    @Override
     public String getEmail() {
         return email;
     }
+    
+    public ArrayList<Mascota> getMascotas() {
+        return this.mascotas;
+    }
 
-    @Override
     public String toString() {
-        StringBuilder bui = new StringBuilder();
-        bui.append("Dueño{ id= ");
-        bui.append(this.id);
-        bui.append(", Nombres= ");
-        bui.append(this.nombres);
-        bui.append(", Apellidos= ");
-        bui.append(this.apellidos);
-        bui.append(", Telefono= ");
-        bui.append(this.telefono);
-        bui.append(", Email = ");
-        bui.append(this.email);
-        bui.append(", Direccion= ");
-        bui.append(this.direccion);
-        bui.append(", Macotas= ");
-        for (Mascota masc: this.mascotas){
-            bui.append(masc.toString());
-            if(this.mascotas.size()!=this.mascotas.size()-1)
-                bui.append(";");               
-            }
-        bui.append("]");
-        return bui.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Dueño{ id= ").append(this.id);
+        sb.append(", Nombres= ").append(this.nombres);
+        sb.append(", Apellidos= ").append(this.apellidos);
+        sb.append(", Telefono= ").append(this.telefono);
+        sb.append(", Email = ").append(this.email);
+        sb.append(", Direccion= ").append(this.direccion);
+        sb.append(", Macotas= ");
+        return sb.toString();
     }
     
     
