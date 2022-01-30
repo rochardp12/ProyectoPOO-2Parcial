@@ -40,40 +40,42 @@ public class MiembroJurado {
         }
     }
 
-    @Override
     public void setId(int id) {
-        this.id = id;
+        try{
+            if(obtenerID(id) != null)
+                throw new IDMiembroJuradoException("ID existente. Ingrese ID nueva");
+            
+        
+        catch(IDMiembroJuradoException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
+        }
     }
 
-    @Override
     public void setNombres(String nombres) {
-        this.nombres = nombres;
+        if(nombres != null)
     }
 
-    @Override
     public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+        if(apellidos != null)
     }
 
-    @Override
     public void setTelefono(String telefono) {
-        this.telefono = telefono;
+        if(telefono != null)
     }
 
-    @Override
     public void setEmail(String email) {
-        this.email = email;
+        if(email != null)
     }
 
     public void setPerfil(String perfil) {
-        this.perfil = perfil;
+        if(perfilProfesional != null)
     }
 
     public void setEvaluaciones(ArrayList<Evaluacion> evaluaciones) {
-        this.evaluaciones = evaluaciones;
+        if(evaluaciones != null)
     }
     
-         @Override
     public int getId() {
         return id;
     }
@@ -90,7 +92,6 @@ public class MiembroJurado {
         return telefono;
     }
 
-    @Override
     public String getEmail() {
         return email;
     }
@@ -103,12 +104,10 @@ public class MiembroJurado {
         return evaluaciones;
     }
 
-    @Override
     public String toString() {
         return id + "|" + nombres + "|" + apellidos + "|" + telefono + "|" + email + "|" + perfil;
     }
 
-    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
