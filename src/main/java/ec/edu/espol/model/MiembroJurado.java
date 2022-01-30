@@ -195,22 +195,4 @@ public class MiembroJurado {
         }
         return null;
     }
-        
-    public static MiembroJurado nextMiembroJ(Scanner sc){
-        sc.useDelimiter("\n");
-        int id=Util.nextID("miembroJurados.txt");
-        System.out.println("Nombres");
-        String nombres=sc.next();
-        System.out.println("Apellidos");
-        String apellidos=sc.next();
-        System.out.println("Telefono");
-        String telefono=sc.next();
-        System.out.println("email");
-        String email=sc.next();
-        System.out.println("Perfil");
-        String perfil=sc.next();
-        MiembroJurado r=new MiembroJurado(id,nombres,apellidos,telefono,email,perfil);
-        return r;
-    }
-
 }
