@@ -6,9 +6,11 @@
 package ec.edu.espol.model;
 
 import ec.edu.espol.util.Util;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  *
@@ -121,10 +125,13 @@ public class Dueno {
     }
     
     public void saveFile(String nomfile) {
-        try (PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile),true))){
-            pw.println(Util.nextID(nomfile)+"|"+this.nombres + "|" + this.apellidos + "|" + this.telefono + "|" + this.email+"|"+this.direccion );
+        try (BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile,true))){
+            bf.write(this.id +"|"+this.nombres + "|" + this.apellidos + "|" + this.direccion + "|" + this.telefono + "|" + this.email+ "\n");
+            Alert a = new Alert(AlertType.CONFIRMATION,"Dueño agregado con éxito");
+            a.show();
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            Alert a = new Alert(AlertType.ERROR,"No es posible registrar al dueño");
+            a.show();
         }
     }
     
