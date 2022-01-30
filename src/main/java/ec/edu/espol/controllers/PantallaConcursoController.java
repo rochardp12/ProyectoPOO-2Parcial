@@ -5,11 +5,14 @@
  */
 package ec.edu.espol.controllers;
 
+import ec.edu.espol.model.Concurso;
+import ec.edu.espol.model.CostoException;
 import ec.edu.espol.model.FechaInvalidaException;
 import ec.edu.espol.model.PanelVacioException;
 import ec.edu.espol.proyectopoo.App;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -91,6 +94,9 @@ public class PantallaConcursoController implements Initializable {
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
             if((anFe < 2022) || (anIns < 2022) || (anCie < 2022))
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
+            if(costo < 0)
+                throw new CostoException("Ingrese un costo correcto");
+            Concurso.crearConcurso(infNombre.getText(), LocalDate.of(anFe,mesFe,diaFe), LocalDate.of(anIns,mesIns,diaIns), LocalDate.of(anCie,mesCie,diaCie), infTematica.getText(), costo);
         }
         catch(PanelVacioException ex){
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
@@ -100,7 +106,7 @@ public class PantallaConcursoController implements Initializable {
             Alert a = new Alert(AlertType.ERROR, "Ingresar numeros correctos");
             a.show();
         }
-        catch(FechaInvalidaException ex){
+        catch(FechaInvalidaException | CostoException ex){
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
         }

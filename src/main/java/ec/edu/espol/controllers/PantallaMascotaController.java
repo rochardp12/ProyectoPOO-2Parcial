@@ -5,6 +5,8 @@
  */
 package ec.edu.espol.controllers;
 
+import ec.edu.espol.model.Dueno;
+import ec.edu.espol.model.EmailDuenoException;
 import ec.edu.espol.model.FechaInvalidaException;
 import ec.edu.espol.model.Mascota;
 import ec.edu.espol.model.PanelVacioException;
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -102,7 +105,11 @@ public class PantallaMascotaController implements Initializable {
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
             if(an < 2022)
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
+            Dueno dueno = Dueno.obtenerDuenoEmail(infEmail.getText());
+            if(dueno == null)
+                throw new EmailDuenoException("Email no existente. Ingresar correctamente o registrar Dueño primero");
             Mascota.guardarImagen(archivoImagen);
+            Mascota.nextMascota(infNombre.getText(), infRaza.getText(), LocalDate.of(an,mes,dia), infTipo.getText(), dueno);
         }
         catch(PanelVacioException ex){
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
@@ -112,7 +119,7 @@ public class PantallaMascotaController implements Initializable {
             Alert a = new Alert(AlertType.ERROR,"Ingresar números correctos");
             a.show();
         }
-        catch(FechaInvalidaException ex){
+        catch(FechaInvalidaException | EmailDuenoException ex){
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
         }

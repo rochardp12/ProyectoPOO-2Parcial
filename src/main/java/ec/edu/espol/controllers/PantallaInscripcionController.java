@@ -55,15 +55,6 @@ public class PantallaInscripcionController implements Initializable {
 
     @FXML
     private void enviarDatos(MouseEvent event) {
-        try{
-            if(Objects.equals(infNombre.getText(),"") || Objects.equals(infConcurso.getText(),"") || Objects.equals(infValor.getText(),"")
-                    || Objects.equals(infDia.getText(),"") || Objects.equals(infMes.getText(),"") || Objects.equals(infAn.getText(),""))
-                throw new PanelVacioException("Obligatorio llenar todos los datos");
-        }
-        catch(PanelVacioException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
-            a.show();
-        }
     }
 
     @FXML
