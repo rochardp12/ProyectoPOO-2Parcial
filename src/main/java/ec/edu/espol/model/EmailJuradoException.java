@@ -9,9 +9,9 @@ package ec.edu.espol.model;
  *
  * @author Usuario
  */
-public class NombreConcursoException extends Exception{
+public class EmailJuradoException extends Exception{
     
-    public NombreConcursoException(String msg){
+    public EmailJuradoException(String msg){
         super(msg);
     }
 }
