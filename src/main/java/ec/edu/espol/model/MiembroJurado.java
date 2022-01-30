@@ -145,18 +145,19 @@ public class MiembroJurado {
         jurado.saveFile("miembroJurados.txt");
     }
     
-    public static ArrayList<MiembroJurado> readFromFile(String nomFile){
+    public static ArrayList<MiembroJurado> readFromFile(String nomfile){
         ArrayList<MiembroJurado> lista=new ArrayList<>();
-        try(Scanner sc=new Scanner(new File(nomFile))){
+        try(BufferedReader bf = new BufferedReader(new File(nomFile))){
+            String linea ;
             while(sc.hasNextLine()){
-                String linea=sc.nextLine();
-                String[] tokens=linea.split("|");
-                MiembroJurado mV=new MiembroJurado(Integer.parseInt(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],tokens[5]);
-                lista.add(mV);
+                String[] arreglo = linea.split("|");
+                MiembroJurado jurado = new MiembroJurado(Integer.parseInt(arreglo[0]), arreglo[1], arreglo[2], arreglo[3], arreglo[4], arreglo[5]);
+                lista.add(jurado);
             }
         }
-        catch(Exception e){
-            System.out.println(e.getMessage());
+        catch(Exception ex){
+            Alert a = new Alert(AlertType.ERROR,"No es posible obtener a los Miembros del Jurado");
+            a.show();
         }
         return lista;
     }
