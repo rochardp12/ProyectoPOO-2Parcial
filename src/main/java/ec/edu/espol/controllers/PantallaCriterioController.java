@@ -34,7 +34,7 @@ import javafx.stage.Stage;
  *
  * @author Richard
  */
-public class PantallaPremioController implements Initializable {
+public class PantallaCriterioController implements Initializable {
 
     @FXML
     private AnchorPane panelPrincipal;
@@ -43,19 +43,19 @@ public class PantallaPremioController implements Initializable {
     @FXML
     private Button btnBuscarConcurso;
     @FXML
-    private TextField infPremio;
+    private TextField infCriterio;
     @FXML
-    private Button btnPremio;
+    private Button btnCriterio;
     @FXML
     private Label textoDescripcion;
     @FXML
     private Button btnRegresar;
     
-    private int cantPremio;
+    private int cantCriterio;
     
     private int cantDescrip;
     
-    private ArrayList<String> infoPremios;
+    private ArrayList<String> infoCriterios;
     
     private TextField infDescripcion;
     
@@ -66,8 +66,9 @@ public class PantallaPremioController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        btnPremio.setDisable(true);
-        infPremio.setDisable(true);
+        btnCriterio.setDisable(true);
+        infCriterio.setDisable(true);
+
     }    
 
     @FXML
@@ -77,8 +78,8 @@ public class PantallaPremioController implements Initializable {
                 throw new PanelVacioException("Ingrese un nombre de concurso");
             if(Concurso.verificarNombre(infNombre.getText()) == null)
                 throw new NombreConcursoException("Nombre de concurso incorrecto. Verificar o registrarlo primero");
-            btnPremio.setDisable(false);
-            infPremio.setDisable(false);
+            btnCriterio.setDisable(false);
+            infCriterio.setDisable(false);
         }catch(PanelVacioException | NombreConcursoException ex){
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
@@ -86,21 +87,21 @@ public class PantallaPremioController implements Initializable {
     }
 
     @FXML
-    private void cantidadPremios(MouseEvent event) {
+    private void cantidadCriterios(MouseEvent event) {
         try{
-            if(Objects.equals(infPremio.getText(),""))
-                throw new PanelVacioException("Ingrese cantidad de premios");
-            cantPremio = Integer.parseInt(infPremio.getText());
-            if(cantPremio <= 0)
-                throw new CantidadException("Ingrese cantidad correcta de premios");
-            infoPremios = new ArrayList<>();
-            if(cantPremio > 1){
+            if(Objects.equals(infCriterio.getText(),""))
+                throw new PanelVacioException("Ingrese cantidad de criterios");
+            cantCriterio = Integer.parseInt(infCriterio.getText());
+            if(cantCriterio <= 0)
+                throw new CantidadException("Ingrese cantidad correcta de criterios");
+            infoCriterios = new ArrayList<>();
+            if(cantCriterio > 1){
                 cantDescrip = 1;
-                textoDescripcion.setText("Ingrese descripción del premio 1");
+                textoDescripcion.setText("Ingrese descripción del criterio 1");
                 cantDescrip++;
             }
             else
-                textoDescripcion.setText("Ingrese descripción del premio");
+                textoDescripcion.setText("Ingrese descripción del criterio");
             infDescripcion = new TextField();
             infDescripcion.setLayoutX(145);
             infDescripcion.setLayoutY(278);
@@ -112,42 +113,41 @@ public class PantallaPremioController implements Initializable {
             btnDescripcion.setOnMouseClicked((MouseEvent e) -> {
                 try{
                     if(Objects.equals(infDescripcion.getText(),""))
-                        throw new PanelVacioException("Ingresar premio");
-                    infoPremios.add(infDescripcion.getText());
-                    cantPremio--;
+                        throw new PanelVacioException("Ingresar criterio");
+                    infoCriterios.add(infDescripcion.getText());
+                    cantCriterio--;
                     infDescripcion.setText("");
-                    if(cantPremio == 0){
+                    if(cantCriterio == 0){
                         textoDescripcion.setText("Click en el botón Registrar");
                         btnDescripcion.setDisable(true);
                         infDescripcion.setDisable(true);
-                        infPremio.setDisable(true);
-                        btnPremio.setDisable(true);
+                        infCriterio.setDisable(true);
+                        btnCriterio.setDisable(true);
                     }
                     else{
-                        textoDescripcion.setText("Ingrese descripción del premio " + cantDescrip);
+                        textoDescripcion.setText("Ingrese descripción del criterio " + cantDescrip);
                         cantDescrip++;
                     }
                 }
                 catch(PanelVacioException ex){
-                    Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+                    Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
                     a.show();
                 }
                 });
         }
         catch(PanelVacioException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
         catch(NumberFormatException ex){
-            Alert a = new Alert(AlertType.ERROR, "Ingresar números correctos");
+            Alert a = new Alert(Alert.AlertType.ERROR, "Ingresar números correctos");
             a.show();
         }
         catch(CantidadException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
-        }    
+        }  
     }
-    
 
     @FXML
     private void enviarDatos(MouseEvent event) {
@@ -156,8 +156,8 @@ public class PantallaPremioController implements Initializable {
     @FXML
     private void limpiar(MouseEvent event) {
         infNombre.setText("");
-        infPremio.setText("");
-        btnPremio.setDisable(true);
+        infCriterio.setText("");
+        btnCriterio.setDisable(true);
         textoDescripcion.setText("");
         if((infDescripcion != null) && (btnDescripcion != null)){
             infDescripcion.setDisable(true);

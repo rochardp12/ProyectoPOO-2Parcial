@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="panelPrincipal" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.PantallaCriterioController">
+   <children>
+      <Line endX="463.0" layoutX="118.0" layoutY="74.0" startX="-100.0" />
+      <Label layoutX="220.0" layoutY="14.0" text="Criterios" textFill="#94682e">
+         <font>
+            <Font name="Comic Sans MS Bold" size="38.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="42.0" fitWidth="60.0" layoutX="400.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../img/huellas.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="42.0" fitWidth="60.0" layoutX="159.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../img/huellas.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="18.0" layoutY="86.0" prefHeight="42.0" prefWidth="236.0" text="Nombre concurso">
+         <font>
+            <Font name="Courier New Bold" size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="infNombre" layoutX="272.0" layoutY="95.0" />
+      <Button fx:id="btnBuscarConcurso" layoutX="451.0" layoutY="95.0" mnemonicParsing="false" onMouseClicked="#buscarConcurso" text="Buscar Concurso" />
+      <Label layoutX="9.0" layoutY="149.0" prefHeight="42.0" prefWidth="320.0" text="Cantidad de Criterios">
+         <font>
+            <Font name="Courier New Bold" size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="infCriterio" layoutX="367.0" layoutY="158.0" prefHeight="19.0" prefWidth="54.0" />
+      <Button fx:id="btnCriterio" layoutX="451.0" layoutY="158.0" mnemonicParsing="false" onMouseClicked="#cantidadCriterios" text="Aceptar" />
+      <Label fx:id="textoDescripcion" layoutX="35.0" layoutY="208.0" prefHeight="42.0" prefWidth="529.0">
+         <font>
+            <Font name="Courier New Bold" size="25.0" />
+         </font>
+      </Label>
+      <Button layoutX="77.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#enviarDatos" prefHeight="35.0" prefWidth="92.0" text="REGISTRAR" />
+      <Button layoutX="212.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#limpiar" prefHeight="35.0" prefWidth="198.0" text="REGISTRAR NUEVOS CRITERIOS" />
+      <Button fx:id="btnRegresar" layoutX="457.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#regresarPrincipal" prefHeight="35.0" prefWidth="92.0" text="REGRESAR" />
+   </children>
+</AnchorPane>
