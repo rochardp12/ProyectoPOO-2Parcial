@@ -90,53 +90,9 @@ public class PantallaCriterioController implements Initializable {
         }
     }
 
-    @FXML
-    private void enviarDatos(MouseEvent event) {
-        try{
-            if(Objects.equals(infNombre.getText(), "") || Objects.equals(infCriterio.getText(),""))
-                throw new PanelVacioException("Obigatorio llenar todos los datos");
-            if(!(btnCriterio.isDisabled()))
-                throw new PanelVacioException("Llenar las descripciones de los premios");
-            Criterio.crearCriterio(infoCriterios, Concurso.verificarNombre(infNombre.getText()));
-        }
-        catch(PanelVacioException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
-            a.show();
-        }
-    }
 
-    @FXML
-    private void limpiar(MouseEvent event) {
-        infNombre.setText("");
-        infCriterio.setText("");
-        btnCriterio.setDisable(true);
-        textoDescripcion.setText("");
-        if((infDescripcion != null) && (btnDescripcion != null)){
-            infDescripcion.setDisable(true);
-            btnDescripcion.setDisable(true);
-        }   ;
-    }
 
-    @FXML
-    private void regresarPrincipal(MouseEvent event) {
-        try {
-            Stage stg = (Stage)btnRegresar.getScene().getWindow();
-            stg.close();
-            FXMLLoader loader = App.loadFXML("pantallaInicial");
-            Scene sc = new Scene(loader.load(),600,400);
-            Stage sg = new Stage();
-            sg.setScene(sc);
-            sg.setTitle("Concurso de Mascotas");
-            String rut = System.getProperty("user.dir") + "/src/main/resources/img/icono.png";
-            Path ruta = Paths.get(rut);
-            Image imagen = new Image("file:" + ruta);
-            sg.getIcons().add(imagen);
-            sg.show();
-        } catch (IOException ex) {
-            Alert a = new Alert(AlertType.ERROR, "No es posible regresar a la ventana principal");
-            a.show();
-        }
-    }
+    
 
     @FXML
     private void cantidadCriterios(MouseEvent event) {
@@ -155,11 +111,10 @@ public class PantallaCriterioController implements Initializable {
             else
                 textoDescripcion.setText("Ingrese descripción del criterio");
             infDescripcion = new TextField();
-            panelPrincipal.getChildren().add(infDescripcion);
             infDescripcion.setLayoutX(145);
             infDescripcion.setLayoutY(278);
-            btnDescripcion = new Button();
             panelPrincipal.getChildren().add(btnDescripcion);
+            btnDescripcion = new Button();
             btnDescripcion.setLayoutX(371);
             btnDescripcion.setLayoutY(278);
             btnDescripcion.setText("Guardar");
@@ -183,13 +138,13 @@ public class PantallaCriterioController implements Initializable {
                     }
                 }
                 catch(PanelVacioException ex){
-                    Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+                    Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
                     a.show();
                 }
             });
         }
         catch(PanelVacioException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
         catch(NumberFormatException ex){
@@ -200,5 +155,52 @@ public class PantallaCriterioController implements Initializable {
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
         }    
-        } 
+        }
+        @FXML
+    private void enviarDatos(MouseEvent event) {
+        try{
+            if(Objects.equals(infNombre.getText(), "") || Objects.equals(infCriterio.getText(),""))
+                throw new PanelVacioException("Obigatorio llenar todos los datos");
+            if(!(btnCriterio.isDisabled()))
+                throw new PanelVacioException("Llenar las descripciones de los premios");
+            Criterio.crearCriterio(infoCriterios, Concurso.verificarNombre(infNombre.getText()));
+        }
+        catch(PanelVacioException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
+        }
+    }
+    
+    @FXML
+    private void limpiar(MouseEvent event) {
+        infNombre.setText("");
+        infCriterio.setText("");
+        btnCriterio.setDisable(true);
+        textoDescripcion.setText("");
+        if((infDescripcion != null) && (btnDescripcion != null)){
+            infDescripcion.setDisable(true);
+            btnDescripcion.setDisable(true);
+        }   ;
+    } 
+    
+    @FXML
+    private void regresarPrincipal(MouseEvent event) {
+        try {
+            Stage stg = (Stage)btnRegresar.getScene().getWindow();
+            stg.close();
+            FXMLLoader loader = App.loadFXML("pantallaInicial");
+            Scene sc = new Scene(loader.load(),600,400);
+            Stage sg = new Stage();
+            sg.setScene(sc);
+            sg.setTitle("Concurso de Mascotas");
+            String rut = System.getProperty("user.dir") + "/src/main/resources/img/icono.png";
+            Path ruta = Paths.get(rut);
+            Image imagen = new Image("file:" + ruta);
+            sg.getIcons().add(imagen);
+            sg.show();
+        } catch (IOException ex) {
+            Alert a = new Alert(AlertType.ERROR, "No es posible regresar a la ventana principal");
+            a.show();
+        }
+    }
     }
