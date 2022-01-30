@@ -193,9 +193,7 @@ public class PantallaCriterioController implements Initializable {
             Stage sg = new Stage();
             sg.setScene(sc);
             sg.setTitle("Concurso de Mascotas");
-            String rut = System.getProperty("user.dir") + "/src/main/resources/img/icono.png";
-            Path ruta = Paths.get(rut);
-            Image imagen = new Image("file:" + ruta);
+            Image imagen = new Image("img\\icono.png");
             sg.getIcons().add(imagen);
             sg.show();
         } catch (IOException ex) {
