@@ -10,13 +10,22 @@ package ec.edu.espol.model;
  * @author Issac Maza
  */
 public class MiembroJurado {
-    private String perfil;
+    private int id;
+    private String nombres;
+    private String apellidos;
+    private String telefono;
+    private String email;
+    private String perfilProfesional;
     private ArrayList<Evaluacion> evaluaciones;
     
 
-    public MiembroJurado(int id, String nombres, String apellidos, String telefono, String email, String perfil) {
-        super(id,nombres,apellidos,telefono,email);
-        this.perfil = perfil;
+    public MiembroJurado(int id, String nombres, String apellidos, String telefono, String email, String perfilProfesional) {
+        this.id = id;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.email = email;
+        this.perfilProfesional = perfilProfesional;
         this.evaluaciones=new ArrayList<>();
     }
     
@@ -29,39 +38,6 @@ public class MiembroJurado {
 
       
         }
-    }
-     @Override
-    public int getId() {
-        return id;
-    }
-    
-    @Override
-    public String getNombres() {
-        return nombres;
-    }
-    
-    @Override
-    public String getApellidos() {
-        return apellidos;
-    }
-
-   
-    @Override
-    public String getTelefono() {
-        return telefono;
-    }
-
-    @Override
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPerfil() {
-        return perfil;
-    }
-
-    public ArrayList<Evaluacion> getEvaluaciones() {
-        return evaluaciones;
     }
 
     @Override
@@ -95,6 +71,36 @@ public class MiembroJurado {
 
     public void setEvaluaciones(ArrayList<Evaluacion> evaluaciones) {
         this.evaluaciones = evaluaciones;
+    }
+    
+         @Override
+    public int getId() {
+        return id;
+    }
+    
+    public String getNombres() {
+        return nombres;
+    }
+    
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    @Override
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public ArrayList<Evaluacion> getEvaluaciones() {
+        return evaluaciones;
     }
 
     @Override
