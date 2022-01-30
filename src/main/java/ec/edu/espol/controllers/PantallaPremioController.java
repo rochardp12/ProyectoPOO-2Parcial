@@ -9,6 +9,7 @@ import ec.edu.espol.model.CantidadException;
 import ec.edu.espol.model.Concurso;
 import ec.edu.espol.model.NombreConcursoException;
 import ec.edu.espol.model.PanelVacioException;
+import ec.edu.espol.model.Premio;
 import ec.edu.espol.proyectopoo.App;
 import java.io.IOException;
 import java.net.URL;
@@ -151,6 +152,17 @@ public class PantallaPremioController implements Initializable {
 
     @FXML
     private void enviarDatos(MouseEvent event) {
+        try{
+            if(Objects.equals(infNombre.getText(), "") || Objects.equals(infPremio.getText(),""))
+                throw new PanelVacioException("Obigatorio llenar todos los datos");
+            if(!(btnPremio.isDisabled()))
+                throw new PanelVacioException("Llenar las descripciones de los premios");
+            Premio.crearPremio(infoPremios, Concurso.verificarNombre(infNombre.getText()));
+        }
+        catch(PanelVacioException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
+        }
     }
 
     @FXML
