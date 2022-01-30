@@ -50,35 +50,38 @@ public class Dueno {
         try{
             if(verificarID(id) != null)
                 throw new IDDuenoException("ID existente. Ingrese una nueva");
-        
+        }
         catch(IDDuenoException ex){
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }            
-    }
 
     public void setNombres(String nombres) {
         if(nombres != null)
+            this.nombres = nombres;
     }
 
     public void setApellidos(String apellidos) {
         if(apellidos != null)
+            this.apellidos = apellidos;
     }
     
     public void setDireccion(String direccion) {
         if(direccion != null)
+            this.direccion = direccion;
     }
     
     public void setTelefono(String telefono) {
         if(telefono != null)
+            this.telefono = telefono;
     }
 
     public void setEmail(String email) {
         try{
             if(obtenerDuenoEmail(email) != null)
                 throw new EmailDuenoException("E-mail existente. Ingrese uno nuevo");
-        
+        }
         catch(EmailDuenoException ex){
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
@@ -87,6 +90,7 @@ public class Dueno {
     
     public void setMascotas(ArrayList<Mascota> mascotas) {
         if(mascotas != null)
+            this.mascotas = mascotas;
     }
     
     public int getId() {
@@ -119,13 +123,12 @@ public class Dueno {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Dueño{ id= ").append(this.id);
+        sb.append("Dueño{ id= ").append(this.id).append(" --> ");
         sb.append(", Nombres= ").append(this.nombres);
         sb.append(", Apellidos= ").append(this.apellidos);
         sb.append(", Telefono= ").append(this.telefono);
         sb.append(", Email = ").append(this.email);
         sb.append(", Direccion= ").append(this.direccion);
-        sb.append(", Macotas= ");
         return sb.toString();
     }
     
