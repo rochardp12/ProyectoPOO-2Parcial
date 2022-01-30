@@ -6,10 +6,12 @@
 package ec.edu.espol.model;
 
 import ec.edu.espol.util.Util;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.time.LocalDate;
@@ -141,21 +143,21 @@ public class Dueno {
     }
     
     
-    public static ArrayList<Dueno> readFromFile(String nomFile) {
-        ArrayList<Dueno> dueños = new ArrayList<>();
-        try(Scanner sc = new Scanner(new File(nomFile))){
-            while(sc.hasNextLine()){
-                String linea = sc.nextLine();
-                String[] tokens = linea.split("\\|");
-                Dueno dueño = new Dueno(Integer.parseInt(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],tokens[5]);
-                dueños.add(dueño);
+    public static ArrayList<Dueno> readFromFile(String nomfile) {
+        ArrayList<Dueno> duenos = new ArrayList<>();
+        try(BufferedReader bf = new BufferedReader(new FileReader(nomfile))){
+            String linea ;
+            while((linea = bf.readLine()) != null){
+                String[] arreglo = linea.split("\\|");
+                Dueno dueno = new Dueno(Integer.parseInt(arreglo[0]), arreglo[1], arreglo[2], arreglo[3], arreglo[4], arreglo[5]);
+                duenos.add(dueno);
             }
         }
         catch(Exception ex){
                     System.out.println(ex.getMessage());
 
         }
-        return dueños;
+        return duenos;
     }
     
     
