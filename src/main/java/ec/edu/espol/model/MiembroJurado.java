@@ -11,6 +11,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -122,10 +124,12 @@ public class MiembroJurado {
         return this.evaluaciones;
     }
 
+    @Override
     public String toString() {
         return id + "|" + nombres + "|" + apellidos + "|" + telefono + "|" + email + "|" ;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -146,7 +150,7 @@ public class MiembroJurado {
             Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Miembro del Jurado agregado con éxito");
             a.show();
         }
-        catch(Exception ex){
+        catch(IOException  ex){
             Alert a = new Alert(AlertType.ERROR,"No es posible registrar al Miembro del Jurado");
             a.show();
         }
