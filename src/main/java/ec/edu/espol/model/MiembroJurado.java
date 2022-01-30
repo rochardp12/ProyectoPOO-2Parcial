@@ -162,10 +162,19 @@ public class MiembroJurado {
         return jurados ;
     }
     
-    public static MiembroJurado obtnerEmail(String email){
+    public static MiembroJurado obtenerEmail(String email){
         ArrayList<MiembroJurado> jurados = readFromFile("miembroJurados.txt");
         for(MiembroJurado jurado: jurados){
             if(Objects.equals(jurado.email,email))
+                return jurado;
+        }
+        return null;
+    }
+    
+    public static MiembroJurado obtenerID(int id){
+        ArrayList<MiembroJurado> jurados = readFromFile("miembroJurados.txt");
+        for(MiembroJurado jurado: jurados){
+            if(jurado.id == id)
                 return jurado;
         }
         return null;
