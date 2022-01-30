@@ -47,55 +47,70 @@ public class Dueno {
     }
 
     public void setId(int id) {
-        this.id = id;
+        try{
+            if(verificarID(id) != null)
+                throw new IDDuenoException("ID existente. Ingrese una nueva");
+        
+        catch(IDDuenoException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
+        }
+    }            
     }
 
     public void setNombres(String nombres) {
-        this.nombres = nombres;
+        if(nombres != null)
     }
 
     public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+        if(apellidos != null)
     }
     
     public void setDireccion(String direccion) {
-        this.direccion = direccion;
+        if(direccion != null)
     }
     
     public void setTelefono(String telefono) {
-        this.telefono = telefono;
+        if(telefono != null)
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        try{
+            if(obtenerDuenoEmail(email) != null)
+                throw new EmailDuenoException("E-mail existente. Ingrese uno nuevo");
+        
+        catch(EmailDuenoException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
+        }
     }
     
     public void setMascotas(ArrayList<Mascota> mascotas) {
-        this.mascotas = mascotas;
+        if(mascotas != null)
     }
     
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public String getNombres() {
-        return nombres;
+        return this.nombres;
 }
 
     public String getApellidos() {
-        return apellidos;
+        return this.apellidos;
     }
     
     public String getDireccion() {
-        return direccion;
+        return this.direccion;
     }
 
     public String getTelefono() {
-        return telefono;
+        return this.telefono;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
     
     public ArrayList<Mascota> getMascotas() {
