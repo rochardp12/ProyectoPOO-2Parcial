@@ -32,7 +32,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Richard
+ * @author Issac Maza
  */
 public class PantallaDuenoController implements Initializable {
 
