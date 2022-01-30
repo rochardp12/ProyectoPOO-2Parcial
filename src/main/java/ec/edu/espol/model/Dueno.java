@@ -135,32 +135,9 @@ public class Dueno {
         }
     }
     
-    public static Dueno nextDueno(Scanner sc){
-        sc.useDelimiter("\n");
-        //ArrayList<Dueno> lista_d = Dueno.readFromFile("dueño.txt");
-   
-        //int id = lista_d.size() +1;
-        int id = Util.nextID("dueños.txt");
-        System.out.println("El id es:");
-        System.out.println(id);
-        
-        System.out.println("Ingrese la direccion");
-        String direccion = sc.next();
-        
-        System.out.println("Ingrese el nombres");
-        String nombres = sc.next();
-        
-        System.out.println("Ingrese sus apellidos");
-        String apellidos = sc.next();
-        
-        System.out.println("Ingrese su telefono ya sea movil o fijo");
-        String telefono = sc.next();
-        
-        System.out.println("Ingrese un email");
-        String email = sc.next();
-        
-        Dueno duen = new Dueno(id,nombres,apellidos,telefono,email,direccion);
-        return duen;
+    public static void crearDueno(String nombres, String apellidos, String direccion, String telefono, String email){
+        Dueno dueno = new Dueno(Util.nextID("dueños.txt"),nombres, apellidos, direccion, telefono, email);
+        dueno.saveFile("dueños.txt");
     }
     
     
