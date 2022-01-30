@@ -5,11 +5,17 @@
  */
 package ec.edu.espol.controllers;
 
+import ec.edu.espol.model.Dueno;
+import static ec.edu.espol.model.Dueno.obtenerDuenoEmail;
+import ec.edu.espol.model.EmailDuenoException;
+import ec.edu.espol.model.PanelVacioException;
 import ec.edu.espol.proyectopoo.App;
+import ec.edu.espol.util.Util;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +32,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Usuario
+ * @author Richard
  */
 public class PantallaDuenoController implements Initializable {
 
@@ -53,6 +59,18 @@ public class PantallaDuenoController implements Initializable {
 
     @FXML
     private void enviarDatos(MouseEvent event) {
+        try{
+            if(Objects.equals(infNombres.getText(),"") || Objects.equals(infApellidos.getText(),"") || Objects.equals(infDireccion.getText(),"")
+                    || Objects.equals(infTelefono.getText(),"") || Objects.equals(infEmail.getText(),""))
+                throw new PanelVacioException("Obligatorio llenar todos los datos");
+            if(obtenerDuenoEmail(infEmail.getText()) != null)
+                throw new EmailDuenoException("E-mail existente ingrese uno nuevo");
+            Dueno.crearDueno(infNombres.getText(), infApellidos.getText(), infDireccion.getText(), infTelefono.getText(), infEmail.getText());
+        }
+        catch(PanelVacioException | EmailDuenoException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
+        }   
     }
 
     @FXML
@@ -65,7 +83,9 @@ public class PantallaDuenoController implements Initializable {
             Stage sg = new Stage();
             sg.setScene(sc);
             sg.setTitle("Concurso de Mascotas");
-            Image imagen = new Image("img\\icono.png");
+            String rut = System.getProperty("user.dir") + "/src/main/resources/img/icono.png";
+            Path ruta = Paths.get(rut);
+            Image imagen = new Image("file:" + ruta);
             sg.getIcons().add(imagen);
             sg.show();
         } catch (IOException ex) {
