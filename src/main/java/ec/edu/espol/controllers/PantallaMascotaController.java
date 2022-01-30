@@ -144,7 +144,7 @@ public class PantallaMascotaController implements Initializable {
             sg.getIcons().add(imagen);
             sg.show();
         } catch (IOException ex) {
-            Alert a = new Alert(Alert.AlertType.ERROR, "No es posible regresar a la ventana principal");
+            Alert a = new Alert(AlertType.ERROR, "No es posible regresar a la ventana principal");
             a.show();
         }
     }
