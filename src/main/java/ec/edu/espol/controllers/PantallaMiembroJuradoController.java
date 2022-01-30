@@ -5,11 +5,13 @@
  */
 package ec.edu.espol.controllers;
 
+import ec.edu.espol.model.EmailJuradoException;
+import ec.edu.espol.model.MiembroJurado;
+import ec.edu.espol.model.PanelVacioException;
 import ec.edu.espol.proyectopoo.App;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,18 +30,18 @@ import javafx.stage.Stage;
  *
  * @author Usuario
  */
-public class PantallaDuenoController implements Initializable {
+public class PantallaMiembroJuradoController implements Initializable {
 
     @FXML
     private TextField infNombres;
     @FXML
     private TextField infApellidos;
     @FXML
-    private TextField infDireccion;
-    @FXML
     private TextField infTelefono;
     @FXML
     private TextField infEmail;
+    @FXML
+    private TextField infPerfil;
     @FXML
     private Button btnRegresar;
 
@@ -53,6 +55,27 @@ public class PantallaDuenoController implements Initializable {
 
     @FXML
     private void enviarDatos(MouseEvent event) {
+        try{
+            if(Objects.equals(infNombres.getText(),"") || Objects.equals(infApellidos.getText(),"") || Objects.equals(infTelefono.getText(),"")
+                    || Objects.equals(infEmail.getText(),"") || Objects.equals(infPerfil.getText(),""))
+                throw new PanelVacioException("Obligatorio llenar todos los datos");
+            if(MiembroJurado.obtenerEmail(infEmail.getText()) != null)
+                throw new EmailJuradoException("Email existente. Ingrese uno nuevo");
+            MiembroJurado.crearMiembroJurado(infNombres.getText(), infApellidos.getText(), infTelefono.getText(), infEmail.getText(), infPerfil.getText());
+        }
+        catch(PanelVacioException | EmailJuradoException ex){
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
+        }
+    }
+
+    @FXML
+    private void limpiar(MouseEvent event) {
+        infNombres.setText("");
+        infApellidos.setText("");
+        infTelefono.setText("");
+        infEmail.setText("");
+        infPerfil.setText("");
     }
 
     @FXML
@@ -69,18 +92,9 @@ public class PantallaDuenoController implements Initializable {
             sg.getIcons().add(imagen);
             sg.show();
         } catch (IOException ex) {
-            Alert a = new Alert(AlertType.ERROR, "No es posible regresar a la ventana principal");
+            Alert a = new Alert(Alert.AlertType.ERROR, "No es posible regresar a la ventana principal");
             a.show();
         }
-    }
-
-    @FXML
-    private void limpiar(MouseEvent event) {
-        infNombres.setText("");
-        infApellidos.setText("");
-        infDireccion.setText("");
-        infTelefono.setText("");
-        infEmail.setText("");
     }
     
 }

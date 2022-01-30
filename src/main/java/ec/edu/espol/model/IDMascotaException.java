@@ -7,7 +7,7 @@ package ec.edu.espol.model;
 
 /**
  *
- * @author Richard
+ * @author Usuario
  */
 public class IDMascotaException extends Exception{
     
