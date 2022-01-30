@@ -108,7 +108,17 @@ public class Dueno {
         return sb.toString();
     }
     
-    
+    @Override
+    public boolean equals(Object obj){
+       if(obj==null)
+           return false;
+       if(this==obj)
+           return true;
+       if(this.getClass()!=obj.getClass())
+           return false;
+       Dueno dueno = (Dueno)obj;
+       return Objects.equals(this.email, dueno.email);
+    }
     
     public static Dueno nextDueno(Scanner sc){
         sc.useDelimiter("\n");
