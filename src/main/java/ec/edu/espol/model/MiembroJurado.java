@@ -124,16 +124,19 @@ public class MiembroJurado {
         if (this.getClass() != obj.getClass()) {
             return false;
         }
-        MiembroJurado r=(MiembroJurado) obj;
-        return this.id == r.id;
+        MiembroJurado jurado =(MiembroJurado) obj;
+        return Objects.equals(this.email,jurado.email);
     }
     
     public void saveFile(String nomFile){
-        try(PrintWriter pw=new PrintWriter(new FileOutputStream(new File(nomFile),true))){
-            pw.println(this.toString());
+        try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomFile,true))){
+            bf.write(this.id + "|" + this.nombres + "|" + this.apellidos + "|" + this.telefono + "|" + this.email + "|" + this.perfilProfesional + "|" + this.evaluaciones + "\n");
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Miembro del Jurado agregado con éxito");
+            a.show();
         }
-        catch(Exception e){
-            System.out.println(e.getMessage());
+        catch(Exception ex){
+            Alert a = new Alert(AlertType.ERROR,"No es posible registrar al Miembro del Jurado");
+            a.show();
         }
     }
     
