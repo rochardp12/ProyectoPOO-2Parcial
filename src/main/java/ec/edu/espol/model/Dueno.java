@@ -154,7 +154,8 @@ public class Dueno {
             }
         }
         catch(Exception ex){
-                    System.out.println(ex.getMessage());
+            Alert a = new Alert(AlertType.ERROR,"No es posible obtener a los dueños");
+            a.show();
 
         }
         return duenos;
