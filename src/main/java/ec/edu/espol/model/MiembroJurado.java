@@ -42,17 +42,6 @@ public class MiembroJurado {
         this.perfilProfesional = perfilProfesional;
         this.evaluaciones=new ArrayList<>();
     }
-    
-    public void addEvaluaciones(){
-
-        ArrayList<Evaluacion> tEvaluaciones=Evaluacion.readFromFile("evaluaciones.txt");
-        for(Evaluacion e:tEvaluaciones){
-            if(this.id==e.getIdMiembroJurado())
-                evaluaciones.add(e);
-
-      
-        }
-    }
 
     public void setId(int id) {
         try{
@@ -122,11 +111,6 @@ public class MiembroJurado {
 
     public ArrayList<Evaluacion> getEvaluaciones() {
         return this.evaluaciones;
-    }
-
-    @Override
-    public String toString() {
-        return id + "|" + nombres + "|" + apellidos + "|" + telefono + "|" + email + "|" ;
     }
 
     @Override
