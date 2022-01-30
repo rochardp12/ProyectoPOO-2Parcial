@@ -45,7 +45,7 @@ public class MiembroJurado {
             if(obtenerID(id) != null)
                 throw new IDMiembroJuradoException("ID existente. Ingrese ID nueva");
             
-        
+        }
         catch(IDMiembroJuradoException ex){
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
@@ -54,26 +54,32 @@ public class MiembroJurado {
 
     public void setNombres(String nombres) {
         if(nombres != null)
+            this.nombres = nombres;
     }
 
     public void setApellidos(String apellidos) {
         if(apellidos != null)
+            this.apellidos = apellidos;
     }
 
     public void setTelefono(String telefono) {
         if(telefono != null)
+            this.telefono = telefono;
     }
 
     public void setEmail(String email) {
         if(email != null)
+            this.email = email;
     }
 
     public void setPerfil(String perfil) {
         if(perfilProfesional != null)
+            this.perfilProfesional = perfilProfesional;
     }
 
     public void setEvaluaciones(ArrayList<Evaluacion> evaluaciones) {
         if(evaluaciones != null)
+            this.evaluaciones = evaluaciones;
     }
     
     public int getId() {
