@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Richard
+ * @author Usuario
  */
 public class PantallaInscripcionController implements Initializable {
 

@@ -19,12 +19,12 @@
       </Label>
       <ImageView fitHeight="42.0" fitWidth="60.0" layoutX="411.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../proshectFX/src/main/resources/img/huellas.png" />
+            <Image url="@../../../../img/huellas.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="42.0" fitWidth="60.0" layoutX="149.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../proshectFX/src/main/resources/img/huellas.png" />
+            <Image url="@../../../../img/huellas.png" />
          </image>
       </ImageView>
       <Label layoutX="39.0" layoutY="98.0" prefHeight="42.0" prefWidth="221.0" text="Nombre mascota">

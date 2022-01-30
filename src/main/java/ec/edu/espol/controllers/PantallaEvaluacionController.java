@@ -38,7 +38,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Richard
+ * @author Usuario
  */
 public class PantallaEvaluacionController implements Initializable {
 
@@ -119,13 +119,11 @@ public class PantallaEvaluacionController implements Initializable {
             Stage sg = new Stage();
             sg.setScene(sc);
             sg.setTitle("Concurso de Mascotas");
-            String rut = System.getProperty("user.dir") + "/src/main/resources/img/icono.png";
-            Path ruta = Paths.get(rut);
-            Image imagen = new Image("file:" + ruta);
+            Image imagen = new Image("img\\icono.png");
             sg.getIcons().add(imagen);
             sg.show();
         } catch (IOException ex) {
-            Alert a = new Alert(Alert.AlertType.ERROR, "No es posible regresar a la ventana principal");
+            Alert a = new Alert(AlertType.ERROR, "No es posible regresar a la ventana principal");
             a.show();
         }
     }
@@ -140,9 +138,7 @@ public class PantallaEvaluacionController implements Initializable {
                 throw new IDInscripcionException("ID incorrecta. Ingrese una inscripción válida");
             Mascota mascota = Inscripcion.verificarID(idIns).getMascota();
             String nombreImagen = Mascota.buscarImagen(mascota,"imagenesMascotas");
-            String rut = System.getProperty("user.dir") + "/src/main/resources/imgMascotas/" + nombreImagen;
-            Path ruta = Paths.get(rut);
-            Image imagen = new Image("file:" + ruta);
+            Image imagen = new Image("imgMascotas\\" + nombreImagen);
             imgnMascota.setImage(imagen);
             infEmail.setDisable(false);
             infIDCriterio.setDisable(false);
