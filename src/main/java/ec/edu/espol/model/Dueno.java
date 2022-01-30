@@ -158,15 +158,6 @@ public class Dueno {
         return dueños;
     }
     
-    public static void  saveFile( ArrayList<Dueno> dueño , String nombres){
-        try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File(nombres),true))){
-            for (Dueno d:  dueño ){
-                pw.println(d.getId() + "|"+ d.getNombres()+ "|" + d.getApellidos() + "|"+ d.getTelefono()+ "|" + d.getEmail()+ "|"+ d.getDireccion());
-            } 
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
     
     
 }
