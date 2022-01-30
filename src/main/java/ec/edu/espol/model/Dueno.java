@@ -110,14 +110,22 @@ public class Dueno {
     
     @Override
     public boolean equals(Object obj){
-       if(obj==null)
+        if(obj==null)
            return false;
-       if(this==obj)
+        if(this==obj)
            return true;
-       if(this.getClass()!=obj.getClass())
+        if(this.getClass()!=obj.getClass())
            return false;
-       Dueno dueno = (Dueno)obj;
-       return Objects.equals(this.email, dueno.email);
+        Dueno dueno = (Dueno)obj;
+        return Objects.equals(this.email, dueno.email);
+    }
+    
+    public void saveFile(String nomfile) {
+        try (PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile),true))){
+            pw.println(Util.nextID(nomfile)+"|"+this.nombres + "|" + this.apellidos + "|" + this.telefono + "|" + this.email+"|"+this.direccion );
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
     
     public static Dueno nextDueno(Scanner sc){
@@ -148,13 +156,6 @@ public class Dueno {
         return duen;
     }
     
-    public void saveFile(String nomFile) {
-        try (PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomFile),true))){
-            pw.println(Util.nextID(nomFile)+"|"+this.nombres + "|" + this.apellidos + "|" + this.telefono + "|" + this.email+"|"+this.direccion );
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
     
     public static ArrayList<Dueno> readFromFile(String nomFile) {
         ArrayList<Dueno> dueños = new ArrayList<>();
