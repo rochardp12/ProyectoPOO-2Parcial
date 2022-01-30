@@ -146,7 +146,7 @@ public class MiembroJurado {
     }
     
     public static ArrayList<MiembroJurado> readFromFile(String nomfile){
-        ArrayList<MiembroJurado> lista=new ArrayList<>();
+        ArrayList<MiembroJurado> jurados = new ArrayList<>();
         try(BufferedReader bf = new BufferedReader(new File(nomFile))){
             String linea ;
             while(sc.hasNextLine()){
@@ -159,7 +159,16 @@ public class MiembroJurado {
             Alert a = new Alert(AlertType.ERROR,"No es posible obtener a los Miembros del Jurado");
             a.show();
         }
-        return lista;
+        return jurados ;
+    }
+    
+    public static MiembroJurado obtnerEmail(String email){
+        ArrayList<MiembroJurado> jurados = readFromFile("miembroJurados.txt");
+        for(MiembroJurado jurado: jurados){
+            if(Objects.equals(jurado.email,email))
+                return jurado;
+        }
+        return null;
     }
         
     public static MiembroJurado nextMiembroJ(Scanner sc){
