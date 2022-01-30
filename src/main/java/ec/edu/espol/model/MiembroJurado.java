@@ -5,6 +5,18 @@
  */
 package ec.edu.espol.model;
 
+import ec.edu.espol.util.Util;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Scanner;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 /**
  *
  * @author Issac Maza
@@ -111,7 +123,7 @@ public class MiembroJurado {
     }
 
     public String toString() {
-        return id + "|" + nombres + "|" + apellidos + "|" + telefono + "|" + email + "|" + perfil;
+        return id + "|" + nombres + "|" + apellidos + "|" + telefono + "|" + email + "|" ;
     }
 
     public boolean equals(Object obj) {
@@ -147,12 +159,12 @@ public class MiembroJurado {
     
     public static ArrayList<MiembroJurado> readFromFile(String nomfile){
         ArrayList<MiembroJurado> jurados = new ArrayList<>();
-        try(BufferedReader bf = new BufferedReader(new File(nomFile))){
+        try(BufferedReader bf = new BufferedReader(new FileReader(nomfile))){
             String linea ;
-            while(sc.hasNextLine()){
+            while((linea = bf.readLine()) != null){
                 String[] arreglo = linea.split("|");
                 MiembroJurado jurado = new MiembroJurado(Integer.parseInt(arreglo[0]), arreglo[1], arreglo[2], arreglo[3], arreglo[4], arreglo[5]);
-                lista.add(jurado);
+                jurados.add(jurado);
             }
         }
         catch(Exception ex){
