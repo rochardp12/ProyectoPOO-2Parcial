@@ -140,6 +140,11 @@ public class MiembroJurado {
         }
     }
     
+    public static void crearMiembroJurado(String nombres, String apellidos, String telefono, String email, String perfilProfesional){
+        MiembroJurado jurado = new MiembroJurado(Util.nextID("miembroJurados.txt"), nombres, apellidos, telefono, email, perfilProfesional);
+        jurado.saveFile("miembroJurados.txt");
+    }
+    
     public static ArrayList<MiembroJurado> readFromFile(String nomFile){
         ArrayList<MiembroJurado> lista=new ArrayList<>();
         try(Scanner sc=new Scanner(new File(nomFile))){
