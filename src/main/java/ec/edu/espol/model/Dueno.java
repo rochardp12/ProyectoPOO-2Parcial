@@ -191,16 +191,6 @@ public class Dueno {
     }
     
     public static Dueno verificarID(int id){
-<<<<<<< HEAD
-       ArrayList<Dueno> duenos = readFromFile("dueños.txt");
-       for(Dueno dueno: duenos){
-           if(dueno.id == id)
-               return dueno;
-       }
-       return null; 
-   } 
-}
-=======
         ArrayList<Dueno> duenos = readFromFile("dueños.txt");
         for(Dueno dueno: duenos){
             if(dueno.id == id)
@@ -209,4 +199,3 @@ public class Dueno {
         return null;
     }
 }
->>>>>>> 6444ffadd01960597549916b08fd0a435b9e6c6f
