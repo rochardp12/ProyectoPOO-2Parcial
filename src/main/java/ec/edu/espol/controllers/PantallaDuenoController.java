@@ -31,8 +31,7 @@ import javafx.stage.Stage;
  * @author Issac Maza
  */
 public class PantallaDuenoController implements Initializable {
-
-    @FXML
+@FXML
     private TextField infNombres;
     @FXML
     private TextField infApellidos;
@@ -58,13 +57,8 @@ public class PantallaDuenoController implements Initializable {
             if(Objects.equals(infNombres.getText(),"") || Objects.equals(infApellidos.getText(),"") || Objects.equals(infDireccion.getText(),"")
                     || Objects.equals(infTelefono.getText(),"") || Objects.equals(infEmail.getText(),""))
                 throw new PanelVacioException("Obligatorio llenar todos los datos");
-<<<<<<< HEAD
-            if(Dueno.obtenerDuenoEmail(infEmail.getText()) != null)
-                throw new EmailDuenoException("E-mail existente ingrese uno nuevo");
-=======
             if(Dueno.verificarEmail(infEmail.getText()) != null)
                 throw new EmailDuenoException("Email existente. Ingrese uno nuevo");
->>>>>>> 6444ffadd01960597549916b08fd0a435b9e6c6f
             Dueno.crearDueno(infNombres.getText(), infApellidos.getText(), infDireccion.getText(), infTelefono.getText(), infEmail.getText());
         }
         catch(PanelVacioException | EmailDuenoException ex){
@@ -94,5 +88,5 @@ public class PantallaDuenoController implements Initializable {
 
     @FXML
     private void limpiar(MouseEvent event) {
-    }    
+    }
 }
