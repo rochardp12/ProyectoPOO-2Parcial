@@ -9,13 +9,11 @@ import ec.edu.espol.util.Util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -49,6 +47,7 @@ public class Dueno {
         try{
             if(verificarID(id) != null)
                 throw new IDDuenoException("ID existente. Ingrese una nueva");
+            this.id = id;
         }
         catch(IDDuenoException ex){
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
@@ -80,6 +79,7 @@ public class Dueno {
         try{
             if(obtenerDuenoEmail(email) != null)
                 throw new EmailDuenoException("E-mail existente. Ingrese uno nuevo");
+            this.email = email;
         }
         catch(EmailDuenoException ex){
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
@@ -98,7 +98,7 @@ public class Dueno {
 
     public String getNombres() {
         return this.nombres;
-}
+    }
 
     public String getApellidos() {
         return this.apellidos;
@@ -122,12 +122,12 @@ public class Dueno {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Dueño{ id= ").append(this.id).append(" --> ");
-        sb.append(", Nombres= ").append(this.nombres);
-        sb.append(", Apellidos= ").append(this.apellidos);
-        sb.append(", Telefono= ").append(this.telefono);
-        sb.append(", Email = ").append(this.email);
-        sb.append(", Direccion= ").append(this.direccion);
+        sb.append("ID Dueño: ").append(this.id).append(" --> ");
+        sb.append("Nombres: ").append(this.nombres);
+        sb.append(". Apellidos: ").append(this.apellidos);
+        sb.append(". Direccion: ").append(this.direccion);
+        sb.append(". Telefono: ").append(this.telefono);
+        sb.append(". Email: ").append(this.email);
         return sb.toString();
     }
     
@@ -143,12 +143,13 @@ public class Dueno {
         return Objects.equals(this.email, dueno.email);
     }
     
-    public void saveFile(String nomfile) {
-        try (BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile,true))){
-            bf.write(this.id +"|"+this.nombres + "|" + this.apellidos + "|" + this.direccion + "|" + this.telefono + "|" + this.email+ "\n");
+    public void saveFile(String nomfile){
+        try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile,true))){
+            bf.write(this.id + "|" + this.nombres + "|" + this.apellidos + "|" + this.direccion + "|" + this.telefono + "|" + this.email + "\n");
             Alert a = new Alert(AlertType.CONFIRMATION,"Dueño agregado con éxito");
             a.show();
-        } catch (Exception ex) {
+        }
+        catch(IOException ex){
             Alert a = new Alert(AlertType.ERROR,"No es posible registrar al dueño");
             a.show();
         }
@@ -170,10 +171,9 @@ public class Dueno {
                 duenos.add(dueno);
             }
         }
-        catch(Exception ex){
+        catch(IOException ex){
             Alert a = new Alert(AlertType.ERROR,"No es posible obtener a los dueños");
             a.show();
-
         }
         return duenos;
     }
@@ -181,18 +181,18 @@ public class Dueno {
     public static Dueno obtenerDuenoEmail(String email){
         ArrayList<Dueno> duenos = readFromFile("dueños.txt");
         for(Dueno dueno: duenos){
-            while( dueno.email == email)
+            if(Objects.equals(dueno.email,email))
                 return dueno;
         }
         return null;
     }
    
-    public static Dueno verificarID(int id){
-       ArrayList<Dueno> duenos = readFromFile("dueños.txt");
-       for(Dueno dueno: duenos){
-           while(Objects.equals(dueno.id, id))
-               return dueno;
-       }
-       return null; 
-   } 
+    public static Dueno verificarID(int id) {
+        ArrayList<Dueno> duenos = readFromFile("dueños.txt");
+        for(Dueno dueno: duenos){
+            if(dueno.id == id)
+                return dueno;
+        }
+        return null;
+    } 
 }
