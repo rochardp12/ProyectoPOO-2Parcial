@@ -139,13 +139,13 @@ public class PantallaCriterioController implements Initializable {
                     }
                 }
                 catch(PanelVacioException ex){
-                    Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
+                    Alert a = new Alert(AlertType.ERROR, ex.getMessage());
                     a.show();
                 }
             });
         }
         catch(PanelVacioException ex){
-            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
         }
         catch(NumberFormatException ex){
@@ -156,7 +156,7 @@ public class PantallaCriterioController implements Initializable {
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
         }    
-        }
+    }
         @FXML
     private void enviarDatos(MouseEvent event) {
         try{
