@@ -202,4 +202,4 @@ public class PantallaCriterioController implements Initializable {
             a.show();
         }
     }
-    }
+}
