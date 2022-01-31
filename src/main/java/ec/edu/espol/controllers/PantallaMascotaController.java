@@ -24,7 +24,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -61,7 +60,7 @@ public class PantallaMascotaController implements Initializable {
     @FXML
     private Button btnRegresar;
     
-    File archivoImagen;
+    private File archivoImagen;
 
     /**
      * Initializes the controller class.
@@ -74,7 +73,7 @@ public class PantallaMascotaController implements Initializable {
     @FXML
     private void buscarImagen(MouseEvent event) {
         FileChooser fc = new FileChooser();
-        fc.setTitle("Buscar Imagen de Mascota");
+            fc.setTitle("Buscar Imagen de Mascota");
             fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files","*.png","*.jpg","*.gif"));
             Stage stage = (Stage)btnBuscar.getScene().getWindow();
             archivoImagen = fc.showOpenDialog(stage);
@@ -105,36 +104,28 @@ public class PantallaMascotaController implements Initializable {
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
             if(an < 2022)
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
-            Dueno dueno = Dueno.obtenerDuenoEmail(infEmail.getText());
+            Dueno dueno = Dueno.verificarEmail(infEmail.getText());
             if(dueno == null)
                 throw new EmailDuenoException("Email no existente. Ingresar correctamente o registrar Dueño primero");
             Mascota.guardarImagen(archivoImagen);
-            Mascota.nextMascota(infNombre.getText(), infRaza.getText(), LocalDate.of(an,mes,dia), infTipo.getText(), dueno);
+            Mascota.crearMascota(infNombre.getText(), infRaza.getText(), LocalDate.of(an,mes,dia), infTipo.getText(), dueno);
         }
         catch(PanelVacioException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
         catch(NumberFormatException ex){
-            Alert a = new Alert(AlertType.ERROR,"Ingresar números correctos");
+            Alert a = new Alert(Alert.AlertType.ERROR, "Ingresar numeros correctos");
             a.show();
         }
         catch(FechaInvalidaException | EmailDuenoException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
 
     @FXML
     private void limpiar(MouseEvent event) {
-        infNombre.setText("");
-        infRaza.setText("");
-        infTipo.setText("");
-        infEmail.setText("");
-        infDia.setText("");
-        infMes.setText("");
-        infAn.setText("");
-        imgnMascota.setImage(null);
     }
 
     @FXML
@@ -151,9 +142,8 @@ public class PantallaMascotaController implements Initializable {
             sg.getIcons().add(imagen);
             sg.show();
         } catch (IOException ex) {
-            Alert a = new Alert(AlertType.ERROR, "No es posible regresar a la ventana principal");
+            Alert a = new Alert(Alert.AlertType.ERROR, "No es posible regresar a la ventana principal");
             a.show();
         }
-    }
-    
+    } 
 }

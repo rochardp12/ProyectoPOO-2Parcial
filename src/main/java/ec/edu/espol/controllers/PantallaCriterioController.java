@@ -111,10 +111,15 @@ public class PantallaCriterioController implements Initializable {
             else
                 textoDescripcion.setText("Ingrese descripción del criterio");
             infDescripcion = new TextField();
+            panelPrincipal.getChildren().add(infDescripcion);
             infDescripcion.setLayoutX(145);
             infDescripcion.setLayoutY(278);
+<<<<<<< HEAD
             panelPrincipal.getChildren().add(infDescripcion);
+=======
+>>>>>>> 6444ffadd01960597549916b08fd0a435b9e6c6f
             btnDescripcion = new Button();
+            panelPrincipal.getChildren().add(btnDescripcion);
             btnDescripcion.setLayoutX(371);
             btnDescripcion.setLayoutY(278);
             panelPrincipal.getChildren().add(btnDescripcion);
@@ -139,13 +144,13 @@ public class PantallaCriterioController implements Initializable {
                     }
                 }
                 catch(PanelVacioException ex){
-                    Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
+                    Alert a = new Alert(AlertType.ERROR, ex.getMessage());
                     a.show();
                 }
             });
         }
         catch(PanelVacioException ex){
-            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
         }
         catch(NumberFormatException ex){
@@ -156,7 +161,7 @@ public class PantallaCriterioController implements Initializable {
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
         }    
-        }
+    }
         @FXML
     private void enviarDatos(MouseEvent event) {
         try{
@@ -202,4 +207,4 @@ public class PantallaCriterioController implements Initializable {
             a.show();
         }
     }
-    }
+}

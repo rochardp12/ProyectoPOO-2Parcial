@@ -45,6 +45,7 @@ public class Evaluacion {
         this.idCriterio = criterio.getId();
         this.criterio = criterio;
         }
+    //setters
 
     public void setId(int id) {
         try{
@@ -120,6 +121,7 @@ public class Evaluacion {
         if(criterio != null)
             this.criterio = criterio;
     }
+    //getters
 
     public int getId() {
         return this.id;
@@ -152,6 +154,7 @@ public class Evaluacion {
     public Criterio getCriterio() {
         return this.criterio;
     }
+    //comportamientos
     
     @Override
     public String toString() {
@@ -208,7 +211,7 @@ public class Evaluacion {
             a.show();
         }
         return evaluaciones;
-    }
+        }
     
     public static Evaluacion verificarID(int id){
         ArrayList<Evaluacion> evaluaciones = readFromFile("evaluaciones.txt");
@@ -217,5 +220,5 @@ public class Evaluacion {
                 return evaluacion;
         }
         return null;
-    }   
+    }
 }

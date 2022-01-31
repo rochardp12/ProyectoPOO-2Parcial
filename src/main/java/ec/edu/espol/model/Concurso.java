@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 /**
  *
@@ -51,7 +50,6 @@ public class Concurso {
         this.premios = new ArrayList<>();
         this.criterios = new ArrayList<>();
     }
-
     //setters
 
     public void setId(int id) {
@@ -61,7 +59,7 @@ public class Concurso {
             this.id = id;
         }
         catch(IDConcursoException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -98,7 +96,7 @@ public class Concurso {
             this.costoInscripcion = costoInscripcion;
         }
         catch(CostoException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -192,16 +190,15 @@ public class Concurso {
             a.show();
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR,"No es posible registrar al concurso");
+            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible registrar al concurso");
             a.show();
         }
     }
     
-    public static void crearConcurso(String nombre, LocalDate fecha, LocalDate fechaIns, LocalDate fechaCie, String tematica, double costo){
-        Concurso concurso = new Concurso(Util.nextID("concursos.txt"), nombre, fecha, fechaIns, fechaCie, tematica, costo);
+    public static void crearConcurso(String nombreConcurso, LocalDate fecha, LocalDate fechaIns, LocalDate fechaCie, String tematica, double costo){ 
+        Concurso concurso = new Concurso(Util.nextID("concursos.txt"), nombreConcurso, fecha, fechaIns, fechaCie, tematica, costo);
         concurso.saveFile("concursos.txt");
     }
-
     
     public static ArrayList<Concurso> readFromFile(String nomfile){
         ArrayList<Concurso> concursos = new ArrayList<>();
@@ -220,7 +217,7 @@ public class Concurso {
             }
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR,"No es posible obtener a los concursos");
+            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible obtener a los concursos");
             a.show();
         }
         return concursos;
@@ -235,7 +232,7 @@ public class Concurso {
         return null;
     }
     
-    public static Concurso verificarID(int id) throws IDConcursoException{
+    public static Concurso verificarID(int id){
         ArrayList<Concurso> concursos = readFromFile("concursos.txt");
         for(Concurso concurso: concursos){
             if(concurso.id == id)

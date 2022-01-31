@@ -6,18 +6,15 @@
 package ec.edu.espol.model;
 
 import static ec.edu.espol.model.Dueno.readFromFile;
-import static ec.edu.espol.model.Dueno.verificarID;
 import ec.edu.espol.util.Util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,8 +24,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 
 /**
  *
@@ -56,7 +51,7 @@ public class Mascota {
         this.inscripciones = new ArrayList<>();
     }
     //setters
-
+    
     public void setId(int id) {
         try{
             if(verificarID(id) != null)
@@ -64,7 +59,7 @@ public class Mascota {
             this.id = id;
         }
         catch(IDMascotaException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -96,7 +91,7 @@ public class Mascota {
             this.idDueno = idDueno;
         }
         catch(IDDuenoException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -176,18 +171,18 @@ public class Mascota {
     public void saveFile(String nomfile){
         try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile,true))){
             bf.write(this.id + "|" + this.nombre + "|" + this.raza + "|" + this.fechaNacimiento + "|" + this.tipo + "|" + this.dueno.getId() + "|" + this.dueno.getEmail() + "\n");
-            Alert a = new Alert(AlertType.CONFIRMATION,"Mascota agregada con éxito");
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Mascota agregada con éxito");
             a.show();
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR,"No es posible registrar a la mascota");
+            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible registrar a la mascota");
             a.show();
         }
     }
     
-    public static void nextMascota(String nombre, String raza, LocalDate nacimiento, String tipo, Dueno dueno){
-            Mascota masc = new Mascota(Util.nextID("mascotas.txt"), nombre, raza, nacimiento, tipo, dueno);
-            masc.saveFile("mascotas.txt");
+    public static void crearMascota(String nombre, String raza, LocalDate nacimiento, String tipo, Dueno dueno){
+        Mascota masc = new Mascota(Util.nextID("mascotas.txt"), nombre, raza, nacimiento, tipo, dueno);
+        masc.saveFile("mascotas.txt");
     }
     
     public static ArrayList<Mascota> readFromFile(String nomfile){
@@ -198,12 +193,12 @@ public class Mascota {
                 String[] arreglo = linea.split("\\|");
                 String[] fecha = arreglo[3].split("-");
                 LocalDate nacimiento = LocalDate.of(Integer.parseInt(fecha[0]),Integer.parseInt(fecha[1]),Integer.parseInt(fecha[2]));
-                Mascota mascota = new Mascota(Integer.parseInt(arreglo[0]), arreglo[1], arreglo[2], nacimiento, arreglo[4], Dueno.obtenerDuenoEmail(arreglo[6]));
+                Mascota mascota = new Mascota(Integer.parseInt(arreglo[0]), arreglo[1], arreglo[2], nacimiento, arreglo[4], Dueno.verificarEmail(arreglo[6]));
                 mascotas.add(mascota);
             }
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR,"No es posible obtener a las mascotas");
+            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible obtener a las mascotas");
             a.show();
         }
         return mascotas;
@@ -227,12 +222,12 @@ public class Mascota {
         return null;
     }
     
-    public static void agregarImagen(String infoImagen,String nombreArchivo){
+        public static void agregarImagen(String infoImagen,String nombreArchivo){
         try(BufferedWriter bf = new BufferedWriter(new FileWriter(nombreArchivo, true))){
             bf.write(Util.nextID("mascotas.txt") + "|" + infoImagen + "\n");
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR,"Error al subir imagen");
+            Alert a = new Alert(Alert.AlertType.ERROR,"Error al subir imagen");
             a.show();
         }
     }
@@ -247,7 +242,7 @@ public class Mascota {
             }
         } 
         catch (IOException ex) {
-            Alert a = new Alert(AlertType.ERROR,"No es posible cargar la imagen de la mascota");
+            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible cargar la imagen de la mascota");
             a.show();
         }
         return null;
@@ -275,7 +270,7 @@ public class Mascota {
                     Files.copy(origen, destino, REPLACE_EXISTING);
                 }
                 catch(IOException ex){
-                    Alert a = new Alert(AlertType.ERROR, "ERROR al cargar imagen");
+                    Alert a = new Alert(Alert.AlertType.ERROR, "ERROR al cargar imagen");
                     a.show();
                 }
             }

@@ -20,7 +20,6 @@ import java.util.Objects;
 import java.util.Scanner;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-
 /**
  *
  * @author Issac Maza
@@ -40,7 +39,7 @@ public class Criterio {
         this.idConcurso = concurso.getId();
         this.concurso = concurso;
     }
-
+    //setters
 
     public void setId(int id) {
         try{
@@ -56,7 +55,7 @@ public class Criterio {
 
     public void setDescripcion(String descripcion) {
         if(descripcion != null)
-            this.descripcion = descripcion;   
+            this.descripcion = descripcion;
     }
 
     public void setEvaluaciones(ArrayList<Evaluacion> evaluaciones) {
@@ -66,20 +65,21 @@ public class Criterio {
 
     public void setIdConcurso(int idConcurso) {
         try{
-            if(Concurso.verificarID(idConcurso)==null)
-                throw new IDConcursoException("Id no existente. Ingrese uno correctamente");
+            if(Concurso.verificarID(idConcurso) == null)
+                throw new IDConcursoException("ID no existente. Ingrese correctamente");
             this.idConcurso = idConcurso;
         }
         catch(IDConcursoException ex){
             Alert a = new Alert(AlertType.ERROR, ex.getMessage());
             a.show();
-        }  
+        }
     }
 
     public void setConcurso(Concurso concurso) {
         if(concurso != null)
             this.concurso = concurso;
     }
+    //getters
 
     public int getId() {
         return this.id;
@@ -100,42 +100,43 @@ public class Criterio {
     public Concurso getConcurso() {
         return this.concurso;
     }
+    //comportamientos
     
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("ID Criterio: ").append(this.id).append(" --> ");
         sb.append("Descripcion: ").append(this.descripcion);
-        sb.append(" --> ID Concurso: ").append(this.idConcurso);
+        sb.append("--> ID Concurso: ").append(this.idConcurso);
         return sb.toString();
     }
     
     @Override
     public boolean equals(Object obj) {
-        if(obj == null)
+        if(obj==null)
             return false;
-        if(this == obj)
+        if(this==obj)
             return true;
-        if(this.getClass() != obj.getClass())
+        if(this.getClass()!=obj.getClass())
             return false;
         Criterio crit = (Criterio)obj;
-        return Objects.equals(this.descripcion, crit.descripcion);
+        return Objects.equals(this.descripcion,crit.descripcion);
     }
     
     public void saveFile(String nomfile, int num){
-        try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile, true))){
+        try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile,true))){
             bf.write(this.id + "|" + this.descripcion + "|" + this.evaluaciones + "|" + this.concurso.getId() + "|" + this.concurso.getNombre() + "\n");
             if(num == 1){
-                Alert a = new Alert(AlertType.CONFIRMATION, "Criterio agregado con éxito");
+                Alert a = new Alert(AlertType.CONFIRMATION,"Criterio agregado con éxito");
                 a.show();
             }
             else{
-                Alert a = new Alert(AlertType.CONFIRMATION, "Criterios agregados con éxito ");
+                Alert a = new Alert(AlertType.CONFIRMATION,"Criterios agregados con éxito");
                 a.show();
             }
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR, "No es posible registrar los criterios");
+            Alert a = new Alert(AlertType.ERROR,"No es posible registrar los criterios");
             a.show();
         }
     }
@@ -158,7 +159,7 @@ public class Criterio {
             }
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR, "No es posible obtener a los criterios");
+            Alert a = new Alert(AlertType.ERROR,"No es posible obtener a los criterios");
             a.show();
         }
         return criterios;
