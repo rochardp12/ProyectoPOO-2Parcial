@@ -102,7 +102,7 @@ public class PantallaMascotaController implements Initializable {
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
             if(((dia >= 30)&&((mes == 2)||(mes == 02))))
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
-            if(an < 2022)
+            if(an > 2022)
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
             Dueno dueno = Dueno.verificarEmail(infEmail.getText());
             if(dueno == null)
