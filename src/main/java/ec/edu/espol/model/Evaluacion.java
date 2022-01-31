@@ -19,11 +19,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 /**
  *
- * @author Issac Maza
+ * @author Usuario
  */
 public class Evaluacion {
     private int id;
@@ -54,7 +53,7 @@ public class Evaluacion {
             this.id = id;
         }
         catch(IDEvaluacionException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -66,7 +65,7 @@ public class Evaluacion {
             this.idInscripcion = idInscripcion;
         }
         catch(IDInscripcionException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -78,12 +77,12 @@ public class Evaluacion {
 
     public void setIdMiembroJurado(int idMiembroJurado) {
         try{
-            if(MiembroJurado.obtenerID(idMiembroJurado) == null)
+            if(MiembroJurado.verificarID(idMiembroJurado) == null)
                 throw new IDMiembroJuradoException("ID no existente. Ingrese correctamente");
             this.idMiembroJurado = idMiembroJurado;
         }
         catch(IDMiembroJuradoException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -100,7 +99,7 @@ public class Evaluacion {
             this.nota = nota;
         }
         catch(NotaException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -112,7 +111,7 @@ public class Evaluacion {
             this.idCriterio = idCriterio;
         }
         catch(IDCriterioException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -182,11 +181,11 @@ public class Evaluacion {
     public void saveFile(String nomfile){
         try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile,true))){
             bf.write(this.id + "|" + this.inscripcion.getId() + "|" + this.miembroJurado.getId() + "|" + this.criterio.getId() + "|" + this.nota + "\n");
-            Alert a = new Alert(AlertType.CONFIRMATION,"Evaluación agregada con éxito");
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Evaluación agregada con éxito");
             a.show();
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR,"No es posible registrar la evaluación");
+            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible registrar la evaluación");
             a.show();
         }
     }
@@ -202,12 +201,12 @@ public class Evaluacion {
             String linea;
             while((linea = bf.readLine()) != null){
                 String[] arreglo = linea.split("\\|");
-                Evaluacion evaluacion = new Evaluacion(Integer.parseInt(arreglo[0]), MiembroJurado.obtenerID(Integer.parseInt(arreglo[2])),Inscripcion.verificarID(Integer.parseInt(arreglo[1])),Criterio.verificarID(Integer.parseInt(arreglo[3])),Double.parseDouble(arreglo[4]));
+                Evaluacion evaluacion = new Evaluacion(Integer.parseInt(arreglo[0]), MiembroJurado.verificarID(Integer.parseInt(arreglo[2])),Inscripcion.verificarID(Integer.parseInt(arreglo[1])),Criterio.verificarID(Integer.parseInt(arreglo[3])),Double.parseDouble(arreglo[4]));
                 evaluaciones.add(evaluacion);
             }
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR,"No es posible obtener las evaluaciones");
+            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible obtener las evaluaciones");
             a.show();
         }
         return evaluaciones;
@@ -222,3 +221,4 @@ public class Evaluacion {
         return null;
     }
 }
+
