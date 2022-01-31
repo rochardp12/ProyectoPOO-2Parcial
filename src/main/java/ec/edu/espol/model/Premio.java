@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 /**
  *
@@ -49,7 +48,7 @@ public class Premio {
             this.id = id;
         }
         catch(IDPremioException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -71,7 +70,7 @@ public class Premio {
             this.idConcurso = idConcurso;
         }
         catch(IDConcursoException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -130,22 +129,22 @@ public class Premio {
         try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile,true))){
             bf.write(this.id + "|" + this.lugar + "|" + this.descripcion + "|" + this.concurso.getId() + "|" + this.concurso.getNombre() + "\n");
             if(num == 1){
-                Alert a = new Alert(AlertType.CONFIRMATION,"Premio agregado con éxito");
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Premio agregado con éxito");
                 a.show();
             }
             else{
-                Alert a = new Alert(AlertType.CONFIRMATION,"Premios agregados con éxito");
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Premios agregados con éxito");
                 a.show();
             }
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR,"No es posible registrar los premios");
+            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible registrar los premios");
             a.show();
         }
     }
     
     public static void crearPremio(ArrayList<String> infoPremios, Concurso concurso){
-        for(int u = 0; u < infoPremios.size(); u++){
+        for(int u=0; u<infoPremios.size(); u++){
             Premio premio = new Premio(Util.nextID("premios.txt"), u+1, infoPremios.get(u), concurso);
             premio.saveFile("premios.txt", infoPremios.size());
         }
@@ -160,13 +159,13 @@ public class Premio {
                 Premio premio = new Premio(Integer.parseInt(arreglo[0]), Integer.parseInt(arreglo[1]),arreglo[2],Concurso.verificarNombre(arreglo[4]));
                 premios.add(premio);
             }
-    }
+        }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR,"No es posible obtener a los premios");
+            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible obtener a los premios");
             a.show();
         }
         return premios;
-    }
+        }
     
     public static Premio verificarID(int id){
         ArrayList<Premio> premios = readFromFile("premios.txt");
