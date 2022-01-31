@@ -18,9 +18,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-
-
 
 /**
  *
@@ -54,7 +51,7 @@ public class Dueno {
             this.id = id;
         }
         catch(IDDuenoException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -81,12 +78,12 @@ public class Dueno {
 
     public void setEmail(String email) {
         try{
-            if(obtenerDuenoEmail(email) != null)
+            if(verificarEmail(email) != null)
                 throw new EmailDuenoException("E-mail existente. Ingrese uno nuevo");
             this.email = email;
         }
         catch(EmailDuenoException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -153,11 +150,11 @@ public class Dueno {
     public void saveFile(String nomfile){
         try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile,true))){
             bf.write(this.id + "|" + this.nombres + "|" + this.apellidos + "|" + this.direccion + "|" + this.telefono + "|" + this.email + "\n");
-            Alert a = new Alert(AlertType.CONFIRMATION,"Dueño agregado con éxito");
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Dueño agregado con éxito");
             a.show();
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR,"No es posible registrar al dueño");
+            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible registrar al dueño");
             a.show();
         }
     }
@@ -178,14 +175,13 @@ public class Dueno {
             }
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR,"No es posible obtener a los dueños");
+            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible obtener a los dueños");
             a.show();
         }
         return duenos;
         }
     
-    
-    public static Dueno obtenerDuenoEmail(String email){
+    public static Dueno verificarEmail(String email){
         ArrayList<Dueno> duenos = readFromFile("dueños.txt");
         for(Dueno dueno: duenos){
             if(Objects.equals(dueno.email,email))
@@ -194,7 +190,7 @@ public class Dueno {
         return null;
     }
     
-    public static Dueno verificarID(int id) {
+    public static Dueno verificarID(int id){
         ArrayList<Dueno> duenos = readFromFile("dueños.txt");
         for(Dueno dueno: duenos){
             if(dueno.id == id)
