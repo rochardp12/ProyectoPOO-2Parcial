@@ -12,6 +12,8 @@ import ec.edu.espol.model.PanelVacioException;
 import ec.edu.espol.proyectopoo.App;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -20,7 +22,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -30,7 +31,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Usuario
+ * @author User
  */
 public class PantallaConcursoController implements Initializable {
 
@@ -99,15 +100,15 @@ public class PantallaConcursoController implements Initializable {
             Concurso.crearConcurso(infNombre.getText(), LocalDate.of(anFe,mesFe,diaFe), LocalDate.of(anIns,mesIns,diaIns), LocalDate.of(anCie,mesCie,diaCie), infTematica.getText(), costo);
         }
         catch(PanelVacioException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
         catch(NumberFormatException ex){
-            Alert a = new Alert(AlertType.ERROR, "Ingresar numeros correctos");
+            Alert a = new Alert(Alert.AlertType.ERROR, "Ingresar numeros correctos");
             a.show();
         }
         catch(FechaInvalidaException | CostoException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -148,3 +149,4 @@ public class PantallaConcursoController implements Initializable {
     }
     
 }
+

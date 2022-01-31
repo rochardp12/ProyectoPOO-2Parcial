@@ -21,7 +21,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -33,7 +32,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Usuario
+ * @author User
  */
 public class PantallaPremioController implements Initializable {
 
@@ -52,15 +51,15 @@ public class PantallaPremioController implements Initializable {
     @FXML
     private Button btnRegresar;
     
+    private TextField infDescripcion;
+    
+    private Button btnDescripcion;
+    
     private int cantPremio;
     
     private int cantDescrip;
     
     private ArrayList<String> infoPremios;
-    
-    private TextField infDescripcion;
-    
-    private Button btnDescripcion;
 
     /**
      * Initializes the controller class.
@@ -80,8 +79,9 @@ public class PantallaPremioController implements Initializable {
                 throw new NombreConcursoException("Nombre de concurso incorrecto. Verificar o registrarlo primero");
             btnPremio.setDisable(false);
             infPremio.setDisable(false);
-        }catch(PanelVacioException | NombreConcursoException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+        }
+        catch(PanelVacioException | NombreConcursoException ex){
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -103,13 +103,13 @@ public class PantallaPremioController implements Initializable {
             else
                 textoDescripcion.setText("Ingrese descripción del premio");
             infDescripcion = new TextField();
+            panelPrincipal.getChildren().add(infDescripcion);
             infDescripcion.setLayoutX(145);
             infDescripcion.setLayoutY(278);
-            panelPrincipal.getChildren().add(infDescripcion);
             btnDescripcion = new Button();
+            panelPrincipal.getChildren().add(btnDescripcion);
             btnDescripcion.setLayoutX(371);
             btnDescripcion.setLayoutY(278);
-            panelPrincipal.getChildren().add(btnDescripcion);
             btnDescripcion.setText("Guardar");
             btnDescripcion.setOnMouseClicked((MouseEvent e) -> {
                 try{
@@ -131,25 +131,24 @@ public class PantallaPremioController implements Initializable {
                     }
                 }
                 catch(PanelVacioException ex){
-                    Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+                    Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
                     a.show();
                 }
                 });
         }
         catch(PanelVacioException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
         catch(NumberFormatException ex){
-            Alert a = new Alert(AlertType.ERROR, "Ingresar números correctos");
+            Alert a = new Alert(Alert.AlertType.ERROR, "Ingresar numeros correctos");
             a.show();
         }
         catch(CantidadException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
-        }    
+        }   
     }
-    
 
     @FXML
     private void enviarDatos(MouseEvent event) {
@@ -161,7 +160,7 @@ public class PantallaPremioController implements Initializable {
             Premio.crearPremio(infoPremios, Concurso.verificarNombre(infNombre.getText()));
         }
         catch(PanelVacioException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -175,7 +174,7 @@ public class PantallaPremioController implements Initializable {
         if((infDescripcion != null) && (btnDescripcion != null)){
             infDescripcion.setDisable(true);
             btnDescripcion.setDisable(true);
-        }  
+        }
     }
 
     @FXML
@@ -192,7 +191,7 @@ public class PantallaPremioController implements Initializable {
             sg.getIcons().add(imagen);
             sg.show();
         } catch (IOException ex) {
-            Alert a = new Alert(AlertType.ERROR, "No es posible regresar a la ventana principal");
+            Alert a = new Alert(Alert.AlertType.ERROR, "No es posible regresar a la ventana principal");
             a.show();
         }
     }

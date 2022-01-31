@@ -18,7 +18,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -28,7 +27,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Usuario
+ * @author User
  */
 public class PantallaMiembroJuradoController implements Initializable {
 
@@ -59,12 +58,12 @@ public class PantallaMiembroJuradoController implements Initializable {
             if(Objects.equals(infNombres.getText(),"") || Objects.equals(infApellidos.getText(),"") || Objects.equals(infTelefono.getText(),"")
                     || Objects.equals(infEmail.getText(),"") || Objects.equals(infPerfil.getText(),""))
                 throw new PanelVacioException("Obligatorio llenar todos los datos");
-            if(MiembroJurado.obtenerEmail(infEmail.getText()) != null)
+            if(MiembroJurado.verificarEmail(infEmail.getText()) != null)
                 throw new EmailJuradoException("Email existente. Ingrese uno nuevo");
             MiembroJurado.crearMiembroJurado(infNombres.getText(), infApellidos.getText(), infTelefono.getText(), infEmail.getText(), infPerfil.getText());
         }
         catch(PanelVacioException | EmailJuradoException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }

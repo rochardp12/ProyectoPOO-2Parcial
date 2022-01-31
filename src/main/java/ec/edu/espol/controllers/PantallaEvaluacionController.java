@@ -27,22 +27,23 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
- * @author Usuario
+ * @author User
  */
 public class PantallaEvaluacionController implements Initializable {
 
+    @FXML
+    private ImageView imgnMascota;
     @FXML
     private TextField infIDIns;
     @FXML
@@ -55,8 +56,7 @@ public class PantallaEvaluacionController implements Initializable {
     private TextField infNota;
     @FXML
     private Button btnRegresar;
-    @FXML
-    private ImageView imgnMascota;
+
 
     /**
      * Initializes the controller class.
@@ -69,31 +69,63 @@ public class PantallaEvaluacionController implements Initializable {
     }    
 
     @FXML
+    private void buscarInscripcion(MouseEvent event) {
+        try{
+            if(Objects.equals(infIDIns.getText(),""))
+                throw new PanelVacioException("Obligatorio ingresar el ID de Inscripcion");
+            int idIns = Integer.parseInt(infIDIns.getText());
+            if(Inscripcion.verificarID(idIns) == null)
+                throw new IDInscripcionException("ID incorrecta. Ingrese una inscripción válida");
+            Mascota mascota = Inscripcion.verificarID(idIns).getMascota();
+            String nombreImagen = Mascota.buscarImagen(mascota,"imagenesMascotas.txt");
+            String rut = System.getProperty("user.dir") + "/src/main/resources/imgMascotas/" + nombreImagen;
+            Path ruta = Paths.get(rut);
+            Image imagen = new Image("file:" + ruta);
+            imgnMascota.setImage(imagen); 
+            infEmail.setDisable(false);
+            infIDCriterio.setDisable(false);
+            infNota.setDisable(false);
+        }
+        catch(PanelVacioException ex){
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
+            a.show();
+        }
+        catch(NumberFormatException ex){
+            Alert a = new Alert(Alert.AlertType.ERROR, "Ingrese número válido");
+            a.show();
+        }
+        catch(IDInscripcionException ex){
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
+            a.show();
+        }
+    }
+
+    @FXML
     private void enviarDatos(MouseEvent event) {
         try{
             if(Objects.equals(infEmail.getText(),"") || Objects.equals(infIDCriterio.getText(),"") || Objects.equals(infNota.getText(),""))
                 throw new PanelVacioException("Obligatorio ingresar todos los datos");
             if(imgnMascota.getImage() == null)
                 throw new PanelVacioException("Obligatorio presionar el botón para Buscar Inscripción para cargar la imagen de la mascota a evaluar");
-            if(MiembroJurado.obtenerEmail(infEmail.getText()) == null)
+            if(MiembroJurado.verificarEmail(infEmail.getText()) == null)
                 throw new EmailJuradoException("Email no existe. Ingrese correctamente o registrese primero");
             if(Criterio.verificarID(Integer.parseInt(infIDCriterio.getText())) == null)
                 throw new IDCriterioException("Criterio no existente. Ingrese correctamente o registrelo primero");
             double nota = Double.parseDouble(infNota.getText());
             if(nota < 0)
                 throw new NotaException("Ingrese una Nota de evaluación correcta");
-            Evaluacion.crearEvaluacion(MiembroJurado.obtenerEmail(infEmail.getText()),Inscripcion.verificarID(Integer.parseInt(infIDIns.getText())), Criterio.verificarID(Integer.parseInt(infIDCriterio.getText())), nota);
+            Evaluacion.crearEvaluacion(MiembroJurado.verificarEmail(infEmail.getText()),Inscripcion.verificarID(Integer.parseInt(infIDIns.getText())), Criterio.verificarID(Integer.parseInt(infIDCriterio.getText())), nota);
         }
         catch(PanelVacioException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
         catch(NumberFormatException ex){
-            Alert a = new Alert(AlertType.ERROR, "Ingrese número válido");
+            Alert a = new Alert(Alert.AlertType.ERROR, "Ingrese número válido");
             a.show();
         }
         catch(EmailJuradoException | IDCriterioException | NotaException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -124,39 +156,7 @@ public class PantallaEvaluacionController implements Initializable {
             sg.getIcons().add(imagen);
             sg.show();
         } catch (IOException ex) {
-            Alert a = new Alert(AlertType.ERROR, "No es posible regresar a la ventana principal");
-            a.show();
-        }
-    }
-
-    @FXML
-    private void buscarInscripcion(MouseEvent event) {
-        try{
-            if(Objects.equals(infIDIns.getText(),""))
-                throw new PanelVacioException("Obligatorio ingresar el ID de Inscripcion");
-            int idIns = Integer.parseInt(infIDIns.getText());
-            if(Inscripcion.verificarID(idIns) == null)
-                throw new IDInscripcionException("ID incorrecta. Ingrese una inscripción válida");
-            Mascota mascota = Inscripcion.verificarID(idIns).getMascota();
-            String nombreImagen = Mascota.buscarImagen(mascota,"imagenesMascotas");
-            String rut = System.getProperty("user.dir") + "/src/main/resources/imgMascotas/" + nombreImagen;
-            Path ruta = Paths.get(rut);
-            Image imagen = new Image("file:" + ruta);
-            imgnMascota.setImage(imagen);
-            infEmail.setDisable(false);
-            infIDCriterio.setDisable(false);
-            infNota.setDisable(false);
-        }
-        catch(PanelVacioException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
-            a.show();
-        }
-        catch(NumberFormatException ex){
-            Alert a = new Alert(AlertType.ERROR, "Ingrese número válido");
-            a.show();
-        }
-        catch(IDInscripcionException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, "No es posible regresar a la ventana principal");
             a.show();
         }
     }
