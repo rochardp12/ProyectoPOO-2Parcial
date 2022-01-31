@@ -10,11 +10,9 @@ import ec.edu.espol.model.Concurso;
 import ec.edu.espol.model.Criterio;
 import ec.edu.espol.model.NombreConcursoException;
 import ec.edu.espol.model.PanelVacioException;
-import ec.edu.espol.proyectopoo.App;
+import ec.edu.espol.proyecto2.App;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -23,7 +21,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -35,10 +32,12 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Issac Maza
+ * @author User
  */
 public class PantallaCriterioController implements Initializable {
 
+    @FXML
+    private AnchorPane panelPrincipal;
     @FXML
     private TextField infNombre;
     @FXML
@@ -61,10 +60,6 @@ public class PantallaCriterioController implements Initializable {
     private int cantDescrip;
     
     private ArrayList<String> infoCriterios;
-    
-    @FXML
-    private AnchorPane panelPrincipal;
-
     /**
      * Initializes the controller class.
      */
@@ -85,14 +80,10 @@ public class PantallaCriterioController implements Initializable {
             infCriterio.setDisable(false);
         }
         catch(PanelVacioException | NombreConcursoException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
-
-
-
-    
 
     @FXML
     private void cantidadCriterios(MouseEvent event) {
@@ -114,15 +105,10 @@ public class PantallaCriterioController implements Initializable {
             panelPrincipal.getChildren().add(infDescripcion);
             infDescripcion.setLayoutX(145);
             infDescripcion.setLayoutY(278);
-<<<<<<< HEAD
-            panelPrincipal.getChildren().add(infDescripcion);
-=======
->>>>>>> 6444ffadd01960597549916b08fd0a435b9e6c6f
             btnDescripcion = new Button();
             panelPrincipal.getChildren().add(btnDescripcion);
             btnDescripcion.setLayoutX(371);
             btnDescripcion.setLayoutY(278);
-            panelPrincipal.getChildren().add(btnDescripcion);
             btnDescripcion.setText("Guardar");
             btnDescripcion.setOnMouseClicked((MouseEvent e) -> {
                 try{
@@ -144,25 +130,26 @@ public class PantallaCriterioController implements Initializable {
                     }
                 }
                 catch(PanelVacioException ex){
-                    Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+                    Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
                     a.show();
                 }
             });
         }
         catch(PanelVacioException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
         catch(NumberFormatException ex){
-            Alert a = new Alert(AlertType.ERROR, "Ingresar números correctos");
+            Alert a = new Alert(Alert.AlertType.ERROR, "Ingresar números correctos");
             a.show();
         }
         catch(CantidadException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
-        }    
+        } 
     }
-        @FXML
+
+    @FXML
     private void enviarDatos(MouseEvent event) {
         try{
             if(Objects.equals(infNombre.getText(), "") || Objects.equals(infCriterio.getText(),""))
@@ -172,23 +159,15 @@ public class PantallaCriterioController implements Initializable {
             Criterio.crearCriterio(infoCriterios, Concurso.verificarNombre(infNombre.getText()));
         }
         catch(PanelVacioException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
-    
+
     @FXML
     private void limpiar(MouseEvent event) {
-        infNombre.setText("");
-        infCriterio.setText("");
-        btnCriterio.setDisable(true);
-        textoDescripcion.setText("");
-        if((infDescripcion != null) && (btnDescripcion != null)){
-            infDescripcion.setDisable(true);
-            btnDescripcion.setDisable(true);
-        }   ;
-    } 
-    
+    }
+
     @FXML
     private void regresarPrincipal(MouseEvent event) {
         try {
@@ -203,8 +182,9 @@ public class PantallaCriterioController implements Initializable {
             sg.getIcons().add(imagen);
             sg.show();
         } catch (IOException ex) {
-            Alert a = new Alert(AlertType.ERROR, "No es posible regresar a la ventana principal");
+            Alert a = new Alert(Alert.AlertType.ERROR, "No es posible regresar a la ventana principal");
             a.show();
         }
     }
+    
 }
