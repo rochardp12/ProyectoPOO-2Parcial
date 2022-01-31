@@ -13,7 +13,7 @@ import ec.edu.espol.model.Mascota;
 import ec.edu.espol.model.NombreConcursoException;
 import ec.edu.espol.model.NombreMascotaException;
 import ec.edu.espol.model.PanelVacioException;
-import ec.edu.espol.proyectopoo.App;
+import ec.edu.espol.proyecto2.App;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -24,7 +24,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -34,7 +33,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Usuario
+ * @author User
  */
 public class PantallaInscripcionController implements Initializable {
 
@@ -88,27 +87,21 @@ public class PantallaInscripcionController implements Initializable {
             Inscripcion.crearInscripcion(Mascota.verificarNombre(infNombre.getText()), Concurso.verificarNombre(infConcurso.getText()), valorPagar, LocalDate.of(an,mes,dia));
         }
         catch(PanelVacioException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
         catch(NumberFormatException ex){
-            Alert a = new Alert(AlertType.ERROR, "Ingresar numeros correctos");
+            Alert a = new Alert(Alert.AlertType.ERROR, "Ingresar numeros correctos");
             a.show();
         }
         catch(NombreMascotaException | NombreConcursoException | FechaInvalidaException | CostoException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
 
     @FXML
     private void limpiar(MouseEvent event) {
-        infNombre.setText("");
-        infConcurso.setText("");
-        infValor.setText("");
-        infDia.setText("");
-        infMes.setText("");
-        infAn.setText("");
     }
 
     @FXML
@@ -125,7 +118,7 @@ public class PantallaInscripcionController implements Initializable {
             sg.getIcons().add(imagen);
             sg.show();
         } catch (IOException ex) {
-            Alert a = new Alert(AlertType.ERROR, "No es posible regresar a la ventana principal");
+            Alert a = new Alert(Alert.AlertType.ERROR, "No es posible regresar a la ventana principal");
             a.show();
         }
     }
