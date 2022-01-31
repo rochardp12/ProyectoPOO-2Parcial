@@ -12,6 +12,5 @@ package ec.edu.espol.model;
 public class IDDuenoException extends Exception{
     public IDDuenoException(String msg){
         super(msg);
-    }
-    
+    } 
 }

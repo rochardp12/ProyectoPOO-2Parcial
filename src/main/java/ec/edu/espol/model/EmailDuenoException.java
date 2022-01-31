@@ -13,5 +13,4 @@ public class EmailDuenoException extends Exception{
         public EmailDuenoException(String msg){
             super(msg);
     }
-    
 }
