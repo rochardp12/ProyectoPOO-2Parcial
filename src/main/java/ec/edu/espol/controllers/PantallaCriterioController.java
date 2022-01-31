@@ -113,10 +113,11 @@ public class PantallaCriterioController implements Initializable {
             infDescripcion = new TextField();
             infDescripcion.setLayoutX(145);
             infDescripcion.setLayoutY(278);
-            panelPrincipal.getChildren().add(btnDescripcion);
+            panelPrincipal.getChildren().add(infDescripcion);
             btnDescripcion = new Button();
             btnDescripcion.setLayoutX(371);
             btnDescripcion.setLayoutY(278);
+            panelPrincipal.getChildren().add(btnDescripcion);
             btnDescripcion.setText("Guardar");
             btnDescripcion.setOnMouseClicked((MouseEvent e) -> {
                 try{

@@ -180,7 +180,7 @@ public class Dueno {
     public static Dueno obtenerDuenoEmail(String email){
         ArrayList<Dueno> duenos = readFromFile("dueños.txt");
         for(Dueno dueno: duenos){
-            while( dueno.email == email)
+            if(Objects.equals(dueno.email,email))
                 return dueno;
         }
         return null;
@@ -189,7 +189,7 @@ public class Dueno {
     public static Dueno verificarID(int id){
        ArrayList<Dueno> duenos = readFromFile("dueños.txt");
        for(Dueno dueno: duenos){
-           while(Objects.equals(dueno.id, id))
+           if(dueno.id == id)
                return dueno;
        }
        return null; 

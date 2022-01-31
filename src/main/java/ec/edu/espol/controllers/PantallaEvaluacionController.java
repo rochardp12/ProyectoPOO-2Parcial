@@ -29,6 +29,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -138,7 +139,9 @@ public class PantallaEvaluacionController implements Initializable {
                 throw new IDInscripcionException("ID incorrecta. Ingrese una inscripción válida");
             Mascota mascota = Inscripcion.verificarID(idIns).getMascota();
             String nombreImagen = Mascota.buscarImagen(mascota,"imagenesMascotas");
-            Image imagen = new Image("imgMascotas\\" + nombreImagen);
+            String rut = System.getProperty("user.dir") + "/src/main/resources/imgMascotas/" + nombreImagen;
+            Path ruta = Paths.get(rut);
+            Image imagen = new Image("file:" + ruta);
             imgnMascota.setImage(imagen);
             infEmail.setDisable(false);
             infIDCriterio.setDisable(false);

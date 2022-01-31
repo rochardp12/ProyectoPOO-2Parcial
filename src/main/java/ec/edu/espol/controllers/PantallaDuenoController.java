@@ -63,7 +63,7 @@ public class PantallaDuenoController implements Initializable {
             if(Objects.equals(infNombres.getText(),"") || Objects.equals(infApellidos.getText(),"") || Objects.equals(infDireccion.getText(),"")
                     || Objects.equals(infTelefono.getText(),"") || Objects.equals(infEmail.getText(),""))
                 throw new PanelVacioException("Obligatorio llenar todos los datos");
-            if(obtenerDuenoEmail(infEmail.getText()) != null)
+            if(Dueno.obtenerDuenoEmail(infEmail.getText()) != null)
                 throw new EmailDuenoException("E-mail existente ingrese uno nuevo");
             Dueno.crearDueno(infNombres.getText(), infApellidos.getText(), infDireccion.getText(), infTelefono.getText(), infEmail.getText());
         }
