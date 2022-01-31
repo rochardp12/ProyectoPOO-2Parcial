@@ -88,5 +88,10 @@ public class PantallaDuenoController implements Initializable {
 
     @FXML
     private void limpiar(MouseEvent event) {
+        infNombres.setText("");
+        infApellidos.setText("");
+        infDireccion.setText("");
+        infTelefono.setText("");
+        infEmail.setText("");
     }
 }

@@ -126,6 +126,14 @@ public class PantallaMascotaController implements Initializable {
 
     @FXML
     private void limpiar(MouseEvent event) {
+        infNombre.setText("");
+        infRaza.setText("");
+        infTipo.setText("");
+        infEmail.setText("");
+        infDia.setText("");
+        infMes.setText("");
+        infAn.setText("");
+        imgnMascota.setImage(null);
     }
 
     @FXML
