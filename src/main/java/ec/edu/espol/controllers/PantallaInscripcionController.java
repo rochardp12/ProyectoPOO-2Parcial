@@ -13,7 +13,7 @@ import ec.edu.espol.model.Mascota;
 import ec.edu.espol.model.NombreConcursoException;
 import ec.edu.espol.model.NombreMascotaException;
 import ec.edu.espol.model.PanelVacioException;
-import ec.edu.espol.proyecto2.App;
+import ec.edu.espol.proyectopoo.App;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -102,6 +102,12 @@ public class PantallaInscripcionController implements Initializable {
 
     @FXML
     private void limpiar(MouseEvent event) {
+        infNombre.setText("");
+        infConcurso.setText("");
+        infValor.setText("");
+        infDia.setText("");
+        infMes.setText("");
+        infAn.setText("");
     }
 
     @FXML

@@ -10,7 +10,7 @@ import ec.edu.espol.model.Concurso;
 import ec.edu.espol.model.Criterio;
 import ec.edu.espol.model.NombreConcursoException;
 import ec.edu.espol.model.PanelVacioException;
-import ec.edu.espol.proyecto2.App;
+import ec.edu.espol.proyectopoo.App;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -166,6 +166,9 @@ public class PantallaCriterioController implements Initializable {
 
     @FXML
     private void limpiar(MouseEvent event) {
+        infNombre.setText("");
+        infCriterio.setText("");
+        infDescripcion.setText("");
     }
 
     @FXML
