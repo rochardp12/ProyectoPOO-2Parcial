@@ -19,10 +19,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+
 /**
  *
- * @author Issac Maza
+ * @author Usuario
  */
 public class Criterio {
     private int id;
@@ -48,7 +48,7 @@ public class Criterio {
             this.id = id;
         }
         catch(IDCriterioException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -70,7 +70,7 @@ public class Criterio {
             this.idConcurso = idConcurso;
         }
         catch(IDConcursoException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -127,22 +127,22 @@ public class Criterio {
         try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile,true))){
             bf.write(this.id + "|" + this.descripcion + "|" + this.evaluaciones + "|" + this.concurso.getId() + "|" + this.concurso.getNombre() + "\n");
             if(num == 1){
-                Alert a = new Alert(AlertType.CONFIRMATION,"Criterio agregado con éxito");
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Criterio agregado con éxito");
                 a.show();
             }
             else{
-                Alert a = new Alert(AlertType.CONFIRMATION,"Criterios agregados con éxito");
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Criterios agregados con éxito");
                 a.show();
             }
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR,"No es posible registrar los criterios");
+            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible registrar los criterios");
             a.show();
         }
-    }
+        }
     
     public static void crearCriterio(ArrayList<String> infoCriterios, Concurso concurso){
-        for(int u=0; u < infoCriterios.size(); u++){
+        for(int u=0; u<infoCriterios.size(); u++){
             Criterio criterio = new Criterio(Util.nextID("criterios.txt"), infoCriterios.get(u), concurso);
             criterio.saveFile("criterios.txt", infoCriterios.size());
         }
@@ -159,11 +159,11 @@ public class Criterio {
             }
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR,"No es posible obtener a los criterios");
+            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible obtener a los criterios");
             a.show();
         }
         return criterios;
-    }
+        }
     
     public static Criterio verificarID(int id){
         ArrayList<Criterio> criterios = readFromFile("criterios.txt");
@@ -173,4 +173,4 @@ public class Criterio {
         }
         return null;
     }
-}
+    }
