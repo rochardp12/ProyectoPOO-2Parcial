@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 /**
  *
@@ -55,7 +54,7 @@ public class Inscripcion {
             this.id = id;
         }
         catch(IDInscripcionException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -67,7 +66,7 @@ public class Inscripcion {
             this.idMascota = idMascota;
         }
         catch(IDMascotaException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -84,7 +83,7 @@ public class Inscripcion {
             this.idConcurso = idConcurso;
         }
         catch(IDConcursoException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -101,7 +100,7 @@ public class Inscripcion {
             this.valor = valor;
         }
         catch(CostoException ex){
-            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
     }
@@ -175,11 +174,11 @@ public class Inscripcion {
     public void saveFile(String nomfile){
         try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile,true))){
             bf.write(this.id + "|" + this.mascota.getId() + "|" + this.mascota.getNombre() + "|" + this.concurso.getId() + "|" + this.concurso.getNombre() + "|" + this.valor + "|" + this.fechaInscripcion + "|" + this.evaluaciones + "\n");
-            Alert a = new Alert(AlertType.CONFIRMATION,"Inscripción agregada con éxito");
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Inscripción agregada con éxito");
             a.show();
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR,"No es posible registrar la inscripción");
+            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible registrar la inscripción");
             a.show();
         }
     }
@@ -202,7 +201,7 @@ public class Inscripcion {
             }
         }
         catch(IOException ex){
-            Alert a = new Alert(AlertType.ERROR,"No es posible obtener las inscripciones");
+            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible obtener las inscripciones");
             a.show();
         }
         return inscripciones;
@@ -216,4 +215,6 @@ public class Inscripcion {
         }
         return null;
     }
+    
+
 }
