@@ -46,6 +46,10 @@ public class Evaluacion {
         }
     //setters
 
+    private Evaluacion(int evaluacionId, int inscripcionId, int miembroJuradoId, int criterioId, double puntaje) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void setId(int id) {
         try{
             if(verificarID(id) != null)
@@ -58,17 +62,22 @@ public class Evaluacion {
         }
     }
 
-    public void setIdInscripcion(int idInscripcion) {
-        try{
-            if(Inscripcion.verificarID(idInscripcion) == null)
-                throw new IDInscripcionException("ID no existente. Ingrese correctamente");
-            this.idInscripcion = idInscripcion;
+public void setIdInscripcion(int idInscripcion, MascotaService mascotaService) {
+    try {
+        Inscripcion inscripcion = Inscripcion.verificarID(idInscripcion, mascotaService);
+        if (inscripcion == null) {
+            throw new IDInscripcionException("ID no existente. Ingrese correctamente");
         }
-        catch(IDInscripcionException ex){
-            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
-            a.show();
-        }
+        this.idInscripcion = idInscripcion;
+    } catch (IDInscripcionException ex) {
+        Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
+        a.show();
+    } catch (NombreMascotaException ex) {
+        Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
+        a.show();
     }
+}
+
 
     public void setInscripcion(Inscripcion inscripcion) {
         if(inscripcion != null)
@@ -195,22 +204,30 @@ public class Evaluacion {
         evaluacion.saveFile("evaluaciones.txt");
     }
     
-    public static ArrayList<Evaluacion> readFromFile(String nomfile){
-        ArrayList<Evaluacion> evaluaciones = new ArrayList<>();
-        try(BufferedReader bf = new BufferedReader(new FileReader(nomfile))){
-            String linea;
-            while((linea = bf.readLine()) != null){
-                String[] arreglo = linea.split("\\|");
-                Evaluacion evaluacion = new Evaluacion(Integer.parseInt(arreglo[0]), MiembroJurado.verificarID(Integer.parseInt(arreglo[2])),Inscripcion.verificarID(Integer.parseInt(arreglo[1])),Criterio.verificarID(Integer.parseInt(arreglo[3])),Double.parseDouble(arreglo[4]));
-                evaluaciones.add(evaluacion);
-            }
+ public static ArrayList<Evaluacion> readFromFile(String nomfile) {
+    ArrayList<Evaluacion> evaluaciones = new ArrayList<>();
+
+    try (BufferedReader bf = new BufferedReader(new FileReader(nomfile))) {
+        String linea;
+        while ((linea = bf.readLine()) != null) {
+            String[] arreglo = linea.split("\\|");
+            int evaluacionId = Integer.parseInt(arreglo[0]);
+            int inscripcionId = Integer.parseInt(arreglo[1]);
+            int miembroJuradoId = Integer.parseInt(arreglo[2]);
+            int criterioId = Integer.parseInt(arreglo[3]);
+            double puntaje = Double.parseDouble(arreglo[4]);
+
+            Evaluacion evaluacion = new Evaluacion(evaluacionId, inscripcionId, miembroJuradoId, criterioId, puntaje);
+            evaluaciones.add(evaluacion);
         }
-        catch(IOException ex){
-            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible obtener las evaluaciones");
-            a.show();
-        }
-        return evaluaciones;
-        }
+    } catch (IOException ex) {
+        Alert a = new Alert(Alert.AlertType.ERROR, "No es posible obtener las evaluaciones");
+        a.show();
+    }
+
+    return evaluaciones;
+}
+
     
     public static Evaluacion verificarID(int id){
         ArrayList<Evaluacion> evaluaciones = readFromFile("evaluaciones.txt");

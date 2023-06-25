@@ -7,9 +7,11 @@ package ec.edu.espol.controllers;
 
 import ec.edu.espol.model.CantidadException;
 import ec.edu.espol.model.Concurso;
+import ec.edu.espol.model.ConcursoService;
 import ec.edu.espol.model.NombreConcursoException;
 import ec.edu.espol.model.PanelVacioException;
 import ec.edu.espol.model.Premio;
+import ec.edu.espol.model.PremioService;
 import ec.edu.espol.proyectopoo.App;
 import java.io.IOException;
 import java.net.URL;
@@ -60,10 +62,19 @@ public class PantallaPremioController implements Initializable {
     private int cantDescrip;
     
     private ArrayList<String> infoPremios;
-
+    private ConcursoService concursoService;
+    private PremioService premioService;
     /**
      * Initializes the controller class.
      */
+
+
+    // Constructor que recibe las dependencias
+    public PantallaPremioController(ConcursoService concursoService, PremioService premioService) {
+        this.concursoService = concursoService;
+        this.premioService = premioService;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         btnPremio.setDisable(true);

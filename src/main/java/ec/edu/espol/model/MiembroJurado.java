@@ -31,6 +31,8 @@ public class MiembroJurado {
     private String email;
     private String perfilProfesional;
     private ArrayList<Evaluacion> evaluaciones;
+    private MiembroJuradoWriter miembroJuradoWriter;
+
     //constructor
     
     public MiembroJurado(int id, String nombres, String apellidos, String telefono, String email, String perfilProfesional){
@@ -42,6 +44,10 @@ public class MiembroJurado {
         this.perfilProfesional = perfilProfesional;
         this.evaluaciones = new ArrayList<>();
     }
+    public void save() {
+        miembroJuradoWriter.saveMiembroJurado(this);
+    }
+
     //setters
 
     public void setId(int id) {
@@ -180,4 +186,5 @@ public class MiembroJurado {
         }
         return null;
     }
+
 }

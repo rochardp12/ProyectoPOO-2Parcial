@@ -4,12 +4,11 @@
  * and open the template in the editor.
  */
 package ec.edu.espol.controllers;
-
-import ec.edu.espol.model.Concurso;
+import ec.edu.espol.model.ConcursoService;
 import ec.edu.espol.model.CostoException;
 import ec.edu.espol.model.FechaInvalidaException;
 import ec.edu.espol.model.Inscripcion;
-import ec.edu.espol.model.Mascota;
+import ec.edu.espol.model.MascotaService;
 import ec.edu.espol.model.NombreConcursoException;
 import ec.edu.espol.model.NombreMascotaException;
 import ec.edu.espol.model.PanelVacioException;
@@ -30,11 +29,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author User
- */
 public class PantallaInscripcionController implements Initializable {
 
     @FXML
@@ -52,9 +46,14 @@ public class PantallaInscripcionController implements Initializable {
     @FXML
     private Button btnRegresar;
 
-    /**
-     * Initializes the controller class.
-     */
+    private MascotaService mascotaService;
+    private ConcursoService concursoService;
+
+    public PantallaInscripcionController(MascotaService mascotaService, ConcursoService concursoService) {
+        this.mascotaService = mascotaService;
+        this.concursoService = concursoService;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -63,38 +62,38 @@ public class PantallaInscripcionController implements Initializable {
     @FXML
     private void enviarDatos(MouseEvent event) {
         try{
-            if(Objects.equals(infNombre.getText(),"") || Objects.equals(infConcurso.getText(),"") || Objects.equals(infValor.getText(),"")
+            if (Objects.equals(infNombre.getText(),"") || Objects.equals(infConcurso.getText(),"") || Objects.equals(infValor.getText(),"")
                     || Objects.equals(infDia.getText(),"") || Objects.equals(infMes.getText(),"") || Objects.equals(infAn.getText(),""))
                 throw new PanelVacioException("Obligatorio llenar todos los datos");
-            if(Mascota.verificarNombre(infNombre.getText()) == null)
+            if (mascotaService.verificarNombre(infNombre.getText()) == null)
                 throw new NombreMascotaException("Nombre de mascota no registrado. Ingresar correctamente o registrar primero");
-            if(Concurso.verificarNombre(infConcurso.getText()) == null)
+            if (concursoService.verificarNombre(infConcurso.getText()) == null)
                 throw new NombreConcursoException("Nombre de concurso no registrado. Ingresar correctamente o registrar primero");
             double valorPagar = Double.parseDouble(infValor.getText());
             int dia = Integer.parseInt(infDia.getText());
             int mes = Integer.parseInt(infMes.getText());
             int an = Integer.parseInt(infAn.getText());
-            if((dia<=0) || (dia>31))
+            if ((dia <= 0) || (dia > 31))
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
-            if((mes<=0) || (mes>12))
+            if ((mes <= 0) || (mes > 12))
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
-            if(((dia >= 30)&&((mes == 2)||(mes == 02))))
+            if (((dia >= 30) && ((mes == 2) || (mes == 02))))
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
-            if(an < 2022)
+            if (an < 2022)
                 throw new FechaInvalidaException("Fecha incorrecta ingresada. Verificar");
-            if(valorPagar < 0)
+            if (valorPagar < 0)
                 throw new CostoException("Ingrese un valor a pagar correcto");
-            Inscripcion.crearInscripcion(Mascota.verificarNombre(infNombre.getText()), Concurso.verificarNombre(infConcurso.getText()), valorPagar, LocalDate.of(an,mes,dia));
+            Inscripcion.crearInscripcion(mascotaService.verificarNombre(infNombre.getText()), concursoService.verificarNombre(infConcurso.getText()), valorPagar, LocalDate.of(an, mes, dia));
         }
-        catch(PanelVacioException ex){
+        catch (PanelVacioException ex){
             Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
-        catch(NumberFormatException ex){
+        catch (NumberFormatException ex){
             Alert a = new Alert(Alert.AlertType.ERROR, "Ingresar numeros correctos");
             a.show();
         }
-        catch(NombreMascotaException | NombreConcursoException | FechaInvalidaException | CostoException ex){
+        catch (NombreMascotaException | NombreConcursoException | FechaInvalidaException | CostoException ex){
             Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             a.show();
         }
@@ -116,7 +115,7 @@ public class PantallaInscripcionController implements Initializable {
             Stage stg = (Stage)btnRegresar.getScene().getWindow();
             stg.close();
             FXMLLoader loader = App.loadFXML("pantallaInicial");
-            Scene sc = new Scene(loader.load(),600,400);
+            Scene sc = new Scene(loader.load(), 600, 400);
             Stage sg = new Stage();
             sg.setScene(sc);
             sg.setTitle("Concurso de Mascotas");
@@ -128,5 +127,4 @@ public class PantallaInscripcionController implements Initializable {
             a.show();
         }
     }
-    
 }
