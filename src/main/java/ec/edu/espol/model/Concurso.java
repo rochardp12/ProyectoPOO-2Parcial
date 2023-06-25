@@ -20,11 +20,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import javafx.scene.control.Alert;
-
+import ec.edu.espol.model.ConcursoFileHandler;
 /**
  *
  * @author Usuario
  */
+
 public class Concurso {
     private int id;
     private String nombre;
@@ -36,9 +37,9 @@ public class Concurso {
     private ArrayList<Inscripcion> inscripciones;
     private ArrayList<Premio> premios;
     private ArrayList<Criterio> criterios;
-    //constructor
-    
-    public Concurso(int id, String nombre, LocalDate fecha, LocalDate fechaInscripcion, LocalDate fechaCierreInscripcion, String tematica, double costoInscripcion){
+
+    public Concurso(int id, String nombre, LocalDate fecha, LocalDate fechaInscripcion,
+                    LocalDate fechaCierreInscripcion, String tematica, double costoInscripcion) {
         this.id = id;
         this.nombre = nombre;
         this.fecha = fecha;
@@ -50,19 +51,15 @@ public class Concurso {
         this.premios = new ArrayList<>();
         this.criterios = new ArrayList<>();
     }
-    //setters
 
-    public void setId(int id) {
-        try{
-            if(verificarID(id) != null)
-                throw new IDConcursoException("ID existente. Ingrese una nueva");
-            this.id = id;
+    // Getters y setters
+    public void setId(int id) throws ConcursoException {
+        if (verificarID(id) != null) {
+            throw new ConcursoException("ID existente. Ingrese un nuevo ID.");
         }
-        catch(IDConcursoException ex){
-            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
-            a.show();
-        }
+        this.id = id;
     }
+
 
     public void setNombre(String nombre){
         if(nombre != null)
@@ -156,8 +153,7 @@ public class Concurso {
     public ArrayList<Criterio> getCriterios() {
         return this.criterios;
     }
-    //comportamientos
-    
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -168,76 +164,49 @@ public class Concurso {
         sb.append(". Costo de inscripcion: ").append(this.costoInscripcion);
         return sb.toString();
     }
-    
+
     @Override
     public boolean equals(Object obj) {
-        if(obj==null)
+        if (obj == null)
             return false;
-        if(this==obj)
+        if (this == obj)
             return true;
-        if(this.getClass()!=obj.getClass())
+        if (this.getClass() != obj.getClass())
             return false;
-        Concurso concurso = (Concurso)obj;
-        if(!(Objects.equals(this.nombre, concurso.nombre)))
+        Concurso concurso = (Concurso) obj;
+        if (!(Objects.equals(this.nombre, concurso.nombre)))
             return false;
-        return Objects.equals(this.tematica,concurso.tematica);
+        return Objects.equals(this.tematica, concurso.tematica);     
     }
-    
-    public void saveFile(String nomfile){
-        try(BufferedWriter bf = new BufferedWriter(new FileWriter(nomfile,true))){
-            bf.write(this.id + "|" + this.nombre + "|" + this.fecha + "|" + this.tematica + "|" + this.fechaInscripcion + "|" + this.fechaCierreInscripcion + "|" + this.costoInscripcion + "\n");
-            Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Concurso agregado con éxito");
-            a.show();
-        }
-        catch(IOException ex){
-            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible registrar al concurso");
-            a.show();
-        }
+    public static void crearConcurso(String nombreConcurso, LocalDate fecha, LocalDate fechaIns, LocalDate fechaCie,
+                                     String tematica, double costo) {
+        int id = Util.nextID("concursos.txt");
+        Concurso concurso = new Concurso(id, nombreConcurso, fecha, fechaIns, fechaCie, tematica, costo);
+        ConcursoFileHandler.saveToFile(concurso);
+        // Mostrar mensaje de éxito o manejar excepciones si es necesario
     }
-    
-    public static void crearConcurso(String nombreConcurso, LocalDate fecha, LocalDate fechaIns, LocalDate fechaCie, String tematica, double costo){ 
-        Concurso concurso = new Concurso(Util.nextID("concursos.txt"), nombreConcurso, fecha, fechaIns, fechaCie, tematica, costo);
-        concurso.saveFile("concursos.txt");
+     public void agregarPremio(Premio premio) {
+        premios.add(premio);
     }
-    
-    public static ArrayList<Concurso> readFromFile(String nomfile){
-        ArrayList<Concurso> concursos = new ArrayList<>();
-        try(BufferedReader bf = new BufferedReader(new FileReader(nomfile))){
-            String linea;
-            while((linea = bf.readLine()) != null){
-                String[] arreglo = linea.split("\\|");
-                String[] fech = arreglo[2].split("-");
-                LocalDate fecha1 = LocalDate.of(Integer.parseInt(fech[0]), Integer.parseInt(fech[1]), Integer.parseInt(fech[2]));
-                String[] fechIns = arreglo[4].split("-");
-                LocalDate fecha2 = LocalDate.of(Integer.parseInt(fechIns[0]),Integer.parseInt(fechIns[1]),Integer.parseInt(fechIns[2]));
-                String[] fechCie = arreglo[5].split("-");
-                LocalDate fecha3 = LocalDate.of(Integer.parseInt(fechCie[0]),Integer.parseInt(fechCie[1]),Integer.parseInt(fechCie[2]));
-                Concurso concurso = new Concurso(Integer.parseInt(arreglo[0]), arreglo[1], fecha1, fecha2, fecha3, arreglo[3], Double.parseDouble(arreglo[6]));
-                concursos.add(concurso);
+    public static Concurso verificarID(int id) {
+        ArrayList<Concurso> concursos = ConcursoFileHandler.readFromFile("concursos.txt");
+        for (Concurso concurso : concursos) {
+            if (concurso.getId() == id) {
+                return concurso;
             }
         }
-        catch(IOException ex){
-            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible obtener a los concursos");
-            a.show();
-        }
-        return concursos;
-        }
-    
-    public static Concurso verificarNombre(String nombreConcurso){
-        ArrayList<Concurso> concursos = readFromFile("concursos.txt");
-        for(Concurso concurso: concursos){
-            if(Objects.equals(concurso.nombre,nombreConcurso))
-                return concurso;
-        }
         return null;
     }
     
-    public static Concurso verificarID(int id){
-        ArrayList<Concurso> concursos = readFromFile("concursos.txt");
-        for(Concurso concurso: concursos){
-            if(concurso.id == id)
-                return concurso;
+    public static Concurso verificarNombre(String nombreConcurso) {
+    ArrayList<Concurso> concursos = ConcursoFileHandler.readFromFile("concursos.txt");
+    for (Concurso concurso : concursos) {
+        if (concurso.getNombre().equals(nombreConcurso)) {
+            return concurso;
         }
-        return null;
     }
+    return null;
+    }
+
+
 }

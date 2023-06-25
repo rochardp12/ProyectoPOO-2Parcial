@@ -47,17 +47,12 @@ public class Inscripcion {
     }
     //setters
 
-    public void setId(int id) {
-        try{
-            if(verificarID(id) != null)
-                throw new IDInscripcionException("ID existente. Ingrese una nueva");
-            this.id = id;
-        }
-        catch(IDInscripcionException ex){
-            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage());
-            a.show();
-        }
+public void setId(int id, MascotaService mascotaService) throws IDInscripcionException, NombreMascotaException {
+    if (verificarID(id, mascotaService) != null) {
+        throw new IDInscripcionException("ID existente. Ingrese uno nuevo");
     }
+    this.id = id;
+}
 
     public void setIdMascota(int idMascota) {
         try{
@@ -188,33 +183,34 @@ public class Inscripcion {
         inscripcion.saveFile("inscripciones.txt");
     }
     
-    public static ArrayList<Inscripcion> readFromFile(String nomfile){
-        ArrayList<Inscripcion> inscripciones = new ArrayList<>();
-        try(BufferedReader bf = new BufferedReader(new FileReader(nomfile))){
-            String linea;
-            while((linea = bf.readLine()) != null){
-                String[] arreglo = linea.split("\\|");
-                String[] fecha = arreglo[6].split("-");
-                LocalDate fechaInscripcion = LocalDate.of(Integer.parseInt(fecha[0]),Integer.parseInt(fecha[1]),Integer.parseInt(fecha[2]));
-                Inscripcion inscripcion = new Inscripcion(Integer.parseInt(arreglo[0]), Mascota.verificarNombre(arreglo[2]), Concurso.verificarNombre(arreglo[4]), Double.parseDouble(arreglo[5]), fechaInscripcion);
-                inscripciones.add(inscripcion);
-            }
+public static ArrayList<Inscripcion> readFromFile(String nomfile, MascotaService mascotaService) throws NombreMascotaException {
+    ArrayList<Inscripcion> inscripciones = new ArrayList<>();
+    try (BufferedReader bf = new BufferedReader(new FileReader(nomfile))) {
+        String linea;
+        while ((linea = bf.readLine()) != null) {
+            String[] arreglo = linea.split("\\|");
+            String[] fecha = arreglo[6].split("-");
+            LocalDate fechaInscripcion = LocalDate.of(Integer.parseInt(fecha[0]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[2]));
+            Mascota mascota = mascotaService.verificarNombre(arreglo[2]); // Utilizar el servicio para verificar el nombre de la mascota
+            Inscripcion inscripcion = new Inscripcion(Integer.parseInt(arreglo[0]), mascota, Concurso.verificarNombre(arreglo[4]), Double.parseDouble(arreglo[5]), fechaInscripcion);
+            inscripciones.add(inscripcion);
         }
-        catch(IOException ex){
-            Alert a = new Alert(Alert.AlertType.ERROR,"No es posible obtener las inscripciones");
-            a.show();
-        }
-        return inscripciones;
+    } catch (IOException ex) {
+        Alert a = new Alert(Alert.AlertType.ERROR, "No es posible obtener las inscripciones");
+        a.show();
     }
+    return inscripciones;
+}
+
+
     
-    public static Inscripcion verificarID(int id){
-        ArrayList<Inscripcion> inscripciones = readFromFile("inscripciones.txt");
-        for(Inscripcion inscripcion: inscripciones){
-            if(inscripcion.id == id)
+    public static Inscripcion verificarID(int id, MascotaService mascotaService) throws NombreMascotaException {
+        ArrayList<Inscripcion> inscripciones = readFromFile("inscripciones.txt", mascotaService);
+        for (Inscripcion inscripcion : inscripciones) {
+            if (inscripcion.getId() == id)
                 return inscripcion;
         }
         return null;
     }
-    
 
 }

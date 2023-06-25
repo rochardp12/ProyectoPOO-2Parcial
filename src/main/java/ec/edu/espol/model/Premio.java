@@ -41,6 +41,10 @@ public class Premio {
     }
     //setters
 
+    Premio(String descripcion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void setId(int id) {
         try{
             if(verificarID(id) != null)

@@ -29,7 +29,7 @@ import javafx.scene.control.Alert;
  *
  * @author Usuario
  */
-public class Mascota {
+public class Mascota implements MascotaService{
     private int id;
     private String nombre;
     private String raza;
@@ -204,11 +204,12 @@ public class Mascota {
         return mascotas;
         }
     
-    public static Mascota verificarNombre(String nombreMascota){
+    public Mascota verificarNombre(String nombreMascota) throws NombreMascotaException {
         ArrayList<Mascota> mascotas = readFromFile("mascotas.txt");
-        for(Mascota mascota: mascotas){
-            if(Objects.equals(mascota.nombre, nombreMascota))
+        for (Mascota mascota : mascotas) {
+            if (Objects.equals(mascota.getNombre(), nombreMascota)) {
                 return mascota;
+            }
         }
         return null;
     }
